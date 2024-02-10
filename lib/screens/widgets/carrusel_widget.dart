@@ -19,26 +19,63 @@ class _MyCarouselState extends State<MyCarousel> {
     String loadingImg =
         'https://blogger.googleusercontent.com/img/a/AVvXsEjbWsuck6YxMLJQ8XSE1Hf7oP3qTbl0vbYlmidLWs76n5EgKJ714bmdkkJlLMZEXG4JjpMkkBJDHtUAHK1UJuHea5pJCjmSFSxk8X62tw93d-rOJxz38K8knBx95EOQWqbv3phWaFiB-tojm_ltY9ioDOO3Ydx9z6s4JeAWxzhy3esQJP7GjNSZjUvH';
 
+    List<Widget> combinedItems = [];
+    for (int i = 0; i < widget.categoryList.length; i += 2) {
+      if (i + 1 < widget.categoryList.length) {
+        combinedItems.add(
+          Row(
+            children: [
+              Expanded(
+                child: CachedNetworkImage(
+                  imageUrl: widget.categoryList[i].imageUrl ?? loadingImg,
+                  width: widthCertifiedImage,
+                  fit: BoxFit.contain,
+                  placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
+                  placeholderFadeInDuration: const Duration(milliseconds: 500),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+              ),
+              SizedBox(width: 10), // Adjust spacing between images as needed
+              Expanded(
+                child: CachedNetworkImage(
+                  imageUrl: widget.categoryList[i + 1].imageUrl ?? loadingImg,
+                  width: widthCertifiedImage,
+                  fit: BoxFit.contain,
+                  placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
+                  placeholderFadeInDuration: const Duration(milliseconds: 500),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+              ),
+            ],
+          ),
+        );
+      } else {
+        // In case the number of categories is odd, handle the last one individually
+        combinedItems.add(
+          CachedNetworkImage(
+            imageUrl: widget.categoryList[i].imageUrl ?? loadingImg,
+            width: widthCertifiedImage,
+            fit: BoxFit.contain,
+            placeholder: (context, url) =>
+                const Center(child: CircularProgressIndicator()),
+            placeholderFadeInDuration: const Duration(milliseconds: 500),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+          ),
+        );
+      }
+    }
+
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.25,
+      height: MediaQuery.of(context).size.height * 0.15,
       child: Center(
         child: CarouselSlider(
-          items: widget.categoryList.map((category) {
-            return CachedNetworkImage(
-              imageUrl: category.imageUrl ?? loadingImg,
-              width: widthCertifiedImage,
-              fit: BoxFit.contain,
-              placeholder: (context, url) =>
-                  const Center(child: CircularProgressIndicator()),
-              placeholderFadeInDuration: const Duration(milliseconds: 200),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            );
-          }).toList(),
+          items: combinedItems,
           options: CarouselOptions(
             height: MediaQuery.of(context).size.height * 0.25,
-            autoPlayInterval: const Duration(
-                seconds: 1), // Cambiado a 1 segundo como solicitaste
+            autoPlayInterval: const Duration(seconds: 2),
             enableInfiniteScroll: false,
             autoPlay: true,
             enlargeCenterPage: true,

@@ -7,8 +7,13 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     double height = MediaQuery.of(context).size.height;
-    final categoryList = ref.watch(
-        categoryProvider); // Obtén la lista de categorías desde el provider
+    final imagesCategoryList = ref.watch(imagesCategoryProvider);
+
+    final videoCategoryList = ref.watch(videoCategoryProvider);
+
+    final audioCategoryList = ref.watch(audioCategoryProvider);
+
+    final othersCategoryList = ref.watch(othersCategoryProvider);
 
     return Scaffold(
       body: Stack(
@@ -33,7 +38,7 @@ class HomeScreen extends ConsumerWidget {
                 backgroundColor: Colors.transparent,
                 elevation: 0,
                 title: const Text(
-                  'Bienvenido',
+                  "HubIA - IA's Gratuitas",
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
@@ -42,14 +47,19 @@ class HomeScreen extends ConsumerWidget {
               SizedBox(height: height * 0.02),
               WidgetCategoryLine('📷 Imágenes'),
               SizedBox(height: height * 0.02),
-              MyCarousel(
-                  categoryList: categoryList), // Pasa categoryList a MyCarousel
+              MyCarousel(categoryList: imagesCategoryList),
+              SizedBox(height: height * 0.02),
               WidgetCategoryLine('📽️ Videos'),
               SizedBox(height: height * 0.02),
-              MyCarousel(
-                  categoryList: categoryList), // Pasa categoryList a MyCarousel
+              MyCarousel(categoryList: videoCategoryList),
+              SizedBox(height: height * 0.02),
               WidgetCategoryLine('🎶 Audio'),
               SizedBox(height: height * 0.02),
+              MyCarousel(categoryList: audioCategoryList),
+              SizedBox(height: height * 0.02),
+              WidgetCategoryLine('🎶 Audio'),
+              SizedBox(height: height * 0.02),
+              MyCarousel(categoryList: othersCategoryList),
             ],
           ),
         ],
@@ -57,7 +67,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  WidgetCarrusel(context, category) {
+/*   WidgetCarrusel(context, category) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.25,
@@ -74,7 +84,7 @@ class HomeScreen extends ConsumerWidget {
         ),
       ),
     );
-  }
+  } */
 
   WidgetCategoryLine(String categoryName) {
     return Padding(
@@ -83,7 +93,8 @@ class HomeScreen extends ConsumerWidget {
         alignment: Alignment.topLeft,
         child: Text(
           categoryName,
-          style: const TextStyle(color: Colors.white),
+          style:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
     );

@@ -65,7 +65,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                       percent: 100 / 100,
                       animation: true,
                       animationDuration: 10000, // 8.5 sec para cargar la barra
-                      progressColor: Colors.green,
+                      progressColor: Colors.blueGrey,
                     ),
                   ],
                 ),
@@ -106,7 +106,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                     style: ButtonStyle(
                       backgroundColor: buttonEnabled
                           ? MaterialStateProperty.all<Color>(
-                              Colors.green,
+                              Colors.blueGrey,
                             ) // Color de fondo cuando está habilitado
                           : MaterialStateProperty.all<Color>(Colors
                               .grey), // Color de fondo cuando está deshabilitado
@@ -117,7 +117,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                       style: TextStyle(
                           fontSize: 10,
                           color:
-                              buttonEnabled ? Colors.green : Colors.blueGrey),
+                              buttonEnabled ? Colors.white : Colors.blueGrey),
                     ),
                   ),
                 ),

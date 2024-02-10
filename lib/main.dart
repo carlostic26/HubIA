@@ -11,7 +11,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      // Envuelve tu aplicación con ProviderScope
       child: MaterialApp(
         title: 'HubIA',
         theme: ThemeData(
