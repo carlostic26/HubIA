@@ -57,13 +57,42 @@ class HomeScreen extends ConsumerWidget {
               SizedBox(height: height * 0.02),
               MyCarousel(categoryList: audioCategoryList),
               SizedBox(height: height * 0.02),
-              WidgetCategoryLine('🎶 Audio'),
+              WidgetCategoryLine('📌 Otros'),
               SizedBox(height: height * 0.02),
               MyCarousel(categoryList: othersCategoryList),
             ],
           ),
         ],
       ),
+
+      drawer: Drawer(
+        backgroundColor: Color.fromARGB(172, 22, 21, 21),
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(206, 158, 158, 158),
+                ),
+                child: Text('Cabecera del Drawer'),
+              ),
+              ListTile(
+                title: const Text('Opción 1'),
+                onTap: () {
+                  // Actualiza el estado de la aplicación.
+                  // ...
+                },
+                        ),
+              ListTile(
+                title: const Text('Opción 2'),
+                onTap: () {
+                  // Actualiza el estado de la aplicación.
+                  // ...
+                },
+              ),
+            ],
+          ),
+        ),
     );
   }
 

@@ -2,7 +2,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:math';
 
-class DatabaseHandler {
+class DbHandlerIA {
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
     return openDatabase(
