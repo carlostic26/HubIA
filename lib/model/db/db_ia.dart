@@ -1,3 +1,5 @@
+import 'package:hubia/model/db/ia_model.dart';
+import 'package:hubia/screens/screens_barril.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:math';
@@ -6,9 +8,9 @@ class DbHandlerIA {
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
     return openDatabase(
-      join(path, 'access_ia_1.db'),
+      join(path, 'ias_1.db'),
       onCreate: (database, version) async {
-        const String sql = ''
+        const String createIaTable = ''
             'CREATE TABLE access_ia ('
             ' id INTEGER PRIMARY KEY AUTOINCREMENT,'
             ' ia_name TEXT,'
@@ -18,7 +20,13 @@ class DbHandlerIA {
             ' web_url TEXT'
             ');';
 
-        await database.execute(sql);
+        const String createFavoritesTable = ''
+            'CREATE TABLE favorite_ias ('
+            ' ia_name TEXT PRIMARY KEY'
+            ');';
+
+        await database.execute(createIaTable);
+        await database.execute(createFavoritesTable);
 
 // video ---
 //video colab GFP-GAN https://colab.research.google.com/drive/1Z6RINOM-wTmXcWuHatgPpJ5nVg39bZkr?usp=sharing
@@ -81,6 +89,71 @@ class DbHandlerIA {
         await database.execute(addIA);
       },
       version: 1,
+    );
+  }
+
+  Future<List<IA>> getIAsByCategory(String category) async {
+    final db = await initializeDB();
+    final List<Map<String, dynamic>> queryResult = await db.rawQuery(
+        'SELECT * FROM cursos WHERE categoria LIKE ?', ['%$category%']);
+    return queryResult.map((e) => IA.fromMap(e)).toList();
+  }
+
+  /* 
+    //PARA IMPLEMENTAR EL METODO getIAsByCategory()
+    List<IA> IADeArtes = await getIAsByCategory('Artes');
+    List<IA> IADeCocina = await getIAsByCategory('Cocina y alimentos');
+    List<IA> IAAgropecuarios = await getIAsByCategory('Agropecuario'); 
+  
+  */
+
+  Future<IA?> getRandomIa(String category) async {
+    final db = await initializeDB();
+    final List<Map<String, dynamic>> queryResult = await db.rawQuery(
+        'SELECT * FROM access_ia WHERE category like ?', ['%$category%']);
+
+    if (queryResult.isEmpty) {
+      return null;
+    }
+
+    final int randomIndex = Random().nextInt(queryResult.length);
+    return IA.fromMap(queryResult[randomIndex]);
+  }
+
+  Future<int> getTotalIasInCategory(String category) async {
+    final db = await initializeDB();
+    final List<Map<String, dynamic>> queryResult = await db.rawQuery(
+        'SELECT COUNT(*) as count FROM access_ia WHERE category like ?',
+        ['%$category%']);
+
+    return queryResult[0]['count'] ?? 0;
+  }
+
+  //CRUD IA's Favorite:
+
+  Future<void> addIAtoFavorites(String nameIa) async {
+    final db = await initializeDB();
+    await db.insert(
+      'favorite_ias',
+      {'ia_name': nameIa},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<List<IA>> getFavoriteIAs() async {
+    final db = await initializeDB();
+    final List<Map<String, dynamic>> queryResult = await db.rawQuery(
+      'SELECT * FROM access_ia WHERE ia_name IN (SELECT ia_name FROM favorite_ias)',
+    );
+    return queryResult.map((e) => IA.fromMap(e)).toList();
+  }
+
+  Future<void> removeIAFromFavorites(String nameIa) async {
+    final db = await initializeDB();
+    await db.delete(
+      'favorite_ias',
+      where: 'ia_name = ?',
+      whereArgs: [nameIa],
     );
   }
 }

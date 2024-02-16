@@ -20,6 +20,7 @@ dependencies:
   cached_network_image: ^3.3.0
   carousel_slider: ^4.0.0
   flutter_riverpod: ^2.3.6
+  fluttertoast: ^8.2.4
 
 dev_dependencies:
   flutter_test:
