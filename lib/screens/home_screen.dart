@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hubia/screens/screens_barril.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -13,86 +14,93 @@ class HomeScreen extends ConsumerWidget {
 
     final audioCategoryList = ref.watch(audioCategoryProvider);
 
+    final textCategoryList = ref.watch(textCategoryProvider);
+
     final othersCategoryList = ref.watch(othersCategoryProvider);
 
     return Scaffold(
       body: Stack(
         children: [
           AnimatedBackground(),
-          Column(
-            children: [
-              AppBar(
-                leading: Builder(
-                  builder: (BuildContext context) {
-                    return IconButton(
-                      icon: const Icon(Icons.menu),
-                      onPressed: () {
-                        Scaffold.of(context).openDrawer();
-                      },
-                    );
-                  },
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                AppBar(
+                  leading: Builder(
+                    builder: (BuildContext context) {
+                      return IconButton(
+                        icon: const Icon(Icons.menu),
+                        onPressed: () {
+                          Scaffold.of(context).openDrawer();
+                        },
+                      );
+                    },
+                  ),
+                  iconTheme: const IconThemeData(
+                    color: Colors.white,
+                  ),
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  title: const Text(
+                    "HubIA - IA's Gratuitas",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  centerTitle: true,
                 ),
-                iconTheme: const IconThemeData(
-                  color: Colors.white,
-                ),
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                title: const Text(
-                  "HubIA - IA's Gratuitas",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-                centerTitle: true,
-              ),
-              SizedBox(height: height * 0.02),
-              WidgetCategoryLine('📷 Imágenes'),
-              SizedBox(height: height * 0.02),
-              MyCarousel(categoryList: imagesCategoryList),
-              SizedBox(height: height * 0.02),
-              WidgetCategoryLine('📽️ Videos'),
-              SizedBox(height: height * 0.02),
-              MyCarousel(categoryList: videoCategoryList),
-              SizedBox(height: height * 0.02),
-              WidgetCategoryLine('🎶 Audio'),
-              SizedBox(height: height * 0.02),
-              MyCarousel(categoryList: audioCategoryList),
-              SizedBox(height: height * 0.02),
-              WidgetCategoryLine('📌 Otros'),
-              SizedBox(height: height * 0.02),
-              MyCarousel(categoryList: othersCategoryList),
-            ],
+                SizedBox(height: height * 0.02),
+                WidgetCategoryLine('📷 Imágenes'),
+                SizedBox(height: height * 0.02),
+                MyCarousel(categoryList: imagesCategoryList),
+                SizedBox(height: height * 0.02),
+                WidgetCategoryLine('📽️ Videos'),
+                SizedBox(height: height * 0.02),
+                MyCarousel(categoryList: videoCategoryList),
+                SizedBox(height: height * 0.02),
+                WidgetCategoryLine('🎶 Audio'),
+                SizedBox(height: height * 0.02),
+                MyCarousel(categoryList: audioCategoryList),
+                SizedBox(height: height * 0.02),
+                WidgetCategoryLine('💬 Texto'),
+                SizedBox(height: height * 0.02),
+                MyCarousel(categoryList: textCategoryList),
+                SizedBox(height: height * 0.02),
+                WidgetCategoryLine('📌 Otros'),
+                MyCarousel(categoryList: othersCategoryList),
+              ],
+            ),
           ),
         ],
       ),
-
       drawer: Drawer(
         backgroundColor: Color.fromARGB(172, 22, 21, 21),
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(206, 158, 158, 158),
-                ),
-                child: Text('Cabecera del Drawer'),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(206, 158, 158, 158),
               ),
-              ListTile(
-                title: const Text('Opción 1'),
-                onTap: () {
-                  // Actualiza el estado de la aplicación.
-                  // ...
-                },
-                        ),
-              ListTile(
-                title: const Text('Opción 2'),
-                onTap: () {
-                  // Actualiza el estado de la aplicación.
-                  // ...
-                },
-              ),
-            ],
-          ),
+              child: Text('Cabecera del Drawer'),
+            ),
+            ListTile(
+              title: const Text('Opción 1'),
+              onTap: () {
+                // Actualiza el estado de la aplicación.
+                // ...
+              },
+            ),
+            ListTile(
+              title: const Text('Opción 2'),
+              onTap: () {
+                // Actualiza el estado de la aplicación.
+                // ...
+              },
+            ),
+          ],
         ),
+      ),
     );
   }
 

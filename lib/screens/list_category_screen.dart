@@ -13,10 +13,14 @@ class ListCategoryScreen extends ConsumerWidget {
 
     final audioCategoryList = ref.watch(audioCategoryProvider);
 
+    final textCategoryList = ref.watch(textCategoryProvider);
+
     final othersCategoryList = ref.watch(othersCategoryProvider);
 
     return Scaffold(
-      body: Column(children: [],),
+      body: Column(
+        children: [],
+      ),
     );
   }
 }

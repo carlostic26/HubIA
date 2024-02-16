@@ -4,10 +4,17 @@ class IA {
   final String? name;
   final String? category;
   final String? imageUrl;
-  final String? description;
   final String? webUrl;
+  final String? description;
+  final String? tutorialUrl;
 
-  IA({this.name, this.category, this.imageUrl, this.description, this.webUrl});
+  IA(
+      {this.name,
+      this.category,
+      this.imageUrl,
+      this.description,
+      this.webUrl,
+      this.tutorialUrl});
 }
 
 /* class DetailScreen extends StatelessWidget {
