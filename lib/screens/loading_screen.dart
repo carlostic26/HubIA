@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hubia/screens/screens_barril.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -23,12 +24,16 @@ class _LoadingScreenState extends State<LoadingScreen> {
     });
   }
 
+//Note: actualmente no se usa este metodo porque no es necesario mostrar un tutorial por primera vez
+//ademas de estarse usando GoRoute y no Navigator
   isLoaded(context) async {
+    /*
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? primerAcceso = prefs.getBool('primerAcceso');
-
+ 
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+        context, MaterialPageRoute(builder: (_) => const HomeScreen())); 
+  */
   }
 
   @override
@@ -101,17 +106,16 @@ class _LoadingScreenState extends State<LoadingScreen> {
                     onPressed: buttonEnabled
                         ? () async {
                             isLoaded(context);
+                            context.go('/home');
                           }
-                        : null, // Desactiva el botón si no está habilitado
+                        : null,
                     style: ButtonStyle(
                       backgroundColor: buttonEnabled
                           ? MaterialStateProperty.all<Color>(
                               Colors.blueGrey,
-                            ) // Color de fondo cuando está habilitado
-                          : MaterialStateProperty.all<Color>(Colors
-                              .grey), // Color de fondo cuando está deshabilitado
+                            )
+                          : MaterialStateProperty.all<Color>(Colors.grey),
                     ),
-
                     child: Text(
                       'Continuar',
                       style: TextStyle(
@@ -133,7 +137,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 class CountingAnimation extends StatefulWidget {
   final int endCount;
 
-  CountingAnimation({required this.endCount});
+  const CountingAnimation({required this.endCount});
 
   @override
   _CountingAnimationState createState() => _CountingAnimationState();
