@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hubia/screens/screens_barril.dart';
@@ -9,14 +10,12 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     double height = MediaQuery.of(context).size.height;
     final imagesCategoryList = ref.watch(imagesCategoryProvider);
-
     final videoCategoryList = ref.watch(videoCategoryProvider);
-
     final audioCategoryList = ref.watch(audioCategoryProvider);
-
     final textCategoryList = ref.watch(textCategoryProvider);
-
     final othersCategoryList = ref.watch(othersCategoryProvider);
+
+    final actualCategory = ref.watch(actualCategoryProvider);
 
     return Scaffold(
       body: Stack(
@@ -50,24 +49,59 @@ class HomeScreen extends ConsumerWidget {
                   centerTitle: true,
                 ),
                 SizedBox(height: height * 0.02),
-                WidgetCategoryLine('📷 Imágenes'),
+                GestureDetector(
+                    onTap: () {
+                      ref.read(actualCategoryProvider.notifier).state =
+                          'Imágenes';
+                      //GoRoute to listCategory
+                    },
+                    child: Column(
+                      children: [
+                        WidgetCategoryLine('📷 Imágenes'),
+                        SizedBox(height: height * 0.02),
+                        MyCarousel(categoryList: imagesCategoryList),
+                      ],
+                    )),
                 SizedBox(height: height * 0.02),
-                MyCarousel(categoryList: imagesCategoryList),
+                GestureDetector(
+                  child: Column(
+                    children: [
+                      WidgetCategoryLine('📽️ Videos'),
+                      SizedBox(height: height * 0.02),
+                      MyCarousel(categoryList: videoCategoryList),
+                    ],
+                  ),
+                ),
                 SizedBox(height: height * 0.02),
-                WidgetCategoryLine('📽️ Videos'),
+                GestureDetector(
+                  child: Column(
+                    children: [
+                      WidgetCategoryLine('🎶 Audio'),
+                      SizedBox(height: height * 0.02),
+                      MyCarousel(categoryList: audioCategoryList),
+                    ],
+                  ),
+                ),
                 SizedBox(height: height * 0.02),
-                MyCarousel(categoryList: videoCategoryList),
+                GestureDetector(
+                  child: Column(
+                    children: [
+                      WidgetCategoryLine('💬 Texto'),
+                      SizedBox(height: height * 0.02),
+                      MyCarousel(categoryList: textCategoryList),
+                    ],
+                  ),
+                ),
                 SizedBox(height: height * 0.02),
-                WidgetCategoryLine('🎶 Audio'),
-                SizedBox(height: height * 0.02),
-                MyCarousel(categoryList: audioCategoryList),
-                SizedBox(height: height * 0.02),
-                WidgetCategoryLine('💬 Texto'),
-                SizedBox(height: height * 0.02),
-                MyCarousel(categoryList: textCategoryList),
-                SizedBox(height: height * 0.02),
-                WidgetCategoryLine('📌 Otros'),
-                MyCarousel(categoryList: othersCategoryList),
+                GestureDetector(
+                  child: Column(
+                    children: [
+                      WidgetCategoryLine('📌 Otros'),
+                      SizedBox(height: height * 0.02),
+                      MyCarousel(categoryList: othersCategoryList),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

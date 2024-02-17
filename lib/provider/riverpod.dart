@@ -1,11 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hubia/model/db/ia_model.dart';
 
-final maxCourses_rp = StateProvider((ref) => 879);
+final maxIas_rp = StateProvider((ref) => 879); //numero de ias
 final isFirstBuild_rp = StateProvider((ref) => true);
 final contadorFinalizado_rp = StateProvider((ref) => false);
 final isButtonVisible_rp = StateProvider((ref) => false);
 final buttonEnabled_rp = StateProvider((ref) => false);
+
+final actualCategoryProvider = StateProvider<String?>((ref) => null);
 
 // image ---
 //https://huggingface.co/spaces/Amrrs/DragGan-Inversion

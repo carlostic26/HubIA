@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 class IA {
   final String? name;
@@ -8,28 +7,36 @@ class IA {
   final String? description;
   final String? tutorialUrl;
 
-  IA(
-      {this.name,
-      this.category,
-      this.imageUrl,
-      this.description,
-      this.webUrl,
-      this.tutorialUrl});
-}
+  IA({
+    this.name,
+    this.category,
+    this.imageUrl,
+    this.webUrl,
+    this.description,
+    this.tutorialUrl,
+  });
 
-/* class DetailScreen extends StatelessWidget {
-  final IA ia;
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'category': category,
+      'imageUrl': imageUrl,
+      'webUrl': webUrl,
+      'description': description,
+      'tutorialUrl': tutorialUrl,
+    };
+  }
 
-  DetailScreen({required this.ia});
+  IA.fromMap(Map<String, dynamic> map)
+      : name = map['name'],
+        category = map['category'],
+        imageUrl = map['imageUrl'],
+        webUrl = map['webUrl'],
+        description = map['description'],
+        tutorialUrl = map['tutorialUrl'];
 
   @override
-  Widget build(BuildContext context) {
-    // Implementa la pantalla de detalles aquí
-    return Scaffold(
-      appBar: AppBar(title: Text(ia.name)),
-      body: Center(
-        child: Text(ia.description),
-      ),
-    );
+  String toString() {
+    return 'IA{name: $name, category: $category, imageUrl: $imageUrl, webUrl: $webUrl, description: $description, tutorialUrl: $tutorialUrl}';
   }
-} */
+}

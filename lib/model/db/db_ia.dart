@@ -1,4 +1,3 @@
-import 'package:hubia/model/db/ia_model.dart';
 import 'package:hubia/screens/screens_barril.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -155,5 +154,12 @@ class DbHandlerIA {
       where: 'ia_name = ?',
       whereArgs: [nameIa],
     );
+  }
+
+  Future<void> deleteOldDatabases() async {
+    for (int i = 1; i < 2; i++) {
+      String dbName = 'ias_$i.db';
+      await deleteDatabase(dbName);
+    }
   }
 }

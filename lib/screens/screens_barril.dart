@@ -9,3 +9,6 @@ export 'package:flutter_riverpod/flutter_riverpod.dart';
 export 'package:hubia/provider/riverpod.dart';
 
 export 'package:hubia/screens/widgets/carrusel_widget.dart';
+export 'package:shared_preferences/shared_preferences.dart';
+export 'package:hubia/model/db/db_ia.dart';
+export 'package:hubia/model/db/ia_model.dart';
