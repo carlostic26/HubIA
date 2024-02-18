@@ -1,5 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hubia/model/db/ia_model.dart';
+import '../screens/screens_barril.dart';
 
 final maxIas_rp = StateProvider((ref) => 879); //numero de ias
 final isFirstBuild_rp = StateProvider((ref) => true);
@@ -7,7 +6,23 @@ final contadorFinalizado_rp = StateProvider((ref) => false);
 final isButtonVisible_rp = StateProvider((ref) => false);
 final buttonEnabled_rp = StateProvider((ref) => false);
 
-final actualCategoryProvider = StateProvider<String?>((ref) => null);
+final selecCatProvider = StateProvider<String?>((ref) => null);
+
+final getCategoryIaProvider = FutureProvider<List<IA>>((ref) async {
+  final dBhandler = DatabaseHandlerIA();
+  await dBhandler.initializeDB();
+
+  final selectedCategory = ref.watch(selecCatProvider.notifier).state;
+
+  if (selectedCategory != null) {
+    // Obtiene la lista de ias según la categoría
+    final List<IA> listIA = await dBhandler.getIAsByCategory(selectedCategory);
+    return listIA;
+  } else {
+    // Si no hay una categoría seleccionada, devuelve una lista vacía
+    return [];
+  }
+});
 
 // image ---
 //https://huggingface.co/spaces/Amrrs/DragGan-Inversion

@@ -8,13 +8,14 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     double height = MediaQuery.of(context).size.height;
-    final imagesCategoryList = ref.watch(imagesCategoryProvider);
-    final videoCategoryList = ref.watch(videoCategoryProvider);
-    final audioCategoryList = ref.watch(audioCategoryProvider);
-    final textCategoryList = ref.watch(textCategoryProvider);
-    final othersCategoryList = ref.watch(othersCategoryProvider);
 
-    final actualCategory = ref.watch(actualCategoryScreenProvider);
+    final imgUrlimages = ref.watch(imagesCategoryProvider);
+    final imgUrlvideo = ref.watch(videoCategoryProvider);
+    final imgUrlaudio = ref.watch(audioCategoryProvider);
+    final imgUrltext = ref.watch(textCategoryProvider);
+    final imgUrlothers = ref.watch(othersCategoryProvider);
+
+    final selectedCategory = ref.watch(selecCatProvider);
 
     return Scaffold(
         body: Stack(
@@ -41,7 +42,7 @@ class HomeScreen extends ConsumerWidget {
                     backgroundColor: Colors.transparent,
                     elevation: 0,
                     title: const Text(
-                      "HubIA - IA's Gratuitas",
+                      "HubIA - IA's de uso libre",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
@@ -49,55 +50,70 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   SizedBox(height: height * 0.02),
                   GestureDetector(
-/*                     onTap: () {
-                      ref.read(actualCategoryProvider.notifier).state =
-                          'Imágenes';
-                      context.go('/categoryList');
-                    }, */
+                      onTap: () {
+                        ref.read(selecCatProvider.notifier).state = 'image';
+                        context.go('/categoryList');
+                      },
                       child: Column(
-                    children: [
-                      WidgetCategoryLine('📷 Imágenes', ref, context),
-                      SizedBox(height: height * 0.02),
-                      MyCarousel(categoryList: imagesCategoryList),
-                    ],
-                  )),
+                        children: [
+                          WidgetCategoryLine('📷 Imágenes'),
+                          SizedBox(height: height * 0.02),
+                          MyCarousel(categoryList: imgUrlimages),
+                        ],
+                      )),
                   SizedBox(height: height * 0.02),
                   GestureDetector(
+                    onTap: () {
+                      ref.read(selecCatProvider.notifier).state = 'video';
+                      context.go('/categoryList');
+                    },
                     child: Column(
                       children: [
-                        WidgetCategoryLine('📽️ Videos', ref, context),
+                        WidgetCategoryLine('📽️ Videos'),
                         SizedBox(height: height * 0.02),
-                        MyCarousel(categoryList: videoCategoryList),
+                        MyCarousel(categoryList: imgUrlvideo),
                       ],
                     ),
                   ),
                   SizedBox(height: height * 0.02),
                   GestureDetector(
+                    onTap: () {
+                      ref.read(selecCatProvider.notifier).state = 'audio';
+                      context.go('/categoryList');
+                    },
                     child: Column(
                       children: [
-                        WidgetCategoryLine('🎶 Audio', ref, context),
+                        WidgetCategoryLine('🎶 Audio'),
                         SizedBox(height: height * 0.02),
-                        MyCarousel(categoryList: audioCategoryList),
+                        MyCarousel(categoryList: imgUrlaudio),
                       ],
                     ),
                   ),
                   SizedBox(height: height * 0.02),
                   GestureDetector(
+                    onTap: () {
+                      ref.read(selecCatProvider.notifier).state = 'text';
+                      context.go('/categoryList');
+                    },
                     child: Column(
                       children: [
-                        WidgetCategoryLine('💬 Texto', ref, context),
+                        WidgetCategoryLine('💬 Texto'),
                         SizedBox(height: height * 0.02),
-                        MyCarousel(categoryList: textCategoryList),
+                        MyCarousel(categoryList: imgUrltext),
                       ],
                     ),
                   ),
                   SizedBox(height: height * 0.02),
                   GestureDetector(
+                    onTap: () {
+                      ref.read(selecCatProvider.notifier).state = 'other';
+                      context.go('/categoryList');
+                    },
                     child: Column(
                       children: [
-                        WidgetCategoryLine('📌 Otros', ref, context),
+                        WidgetCategoryLine('📌 Otros'),
                         SizedBox(height: height * 0.02),
-                        MyCarousel(categoryList: othersCategoryList),
+                        MyCarousel(categoryList: imgUrlothers),
                       ],
                     ),
                   ),
@@ -128,21 +144,15 @@ class HomeScreen extends ConsumerWidget {
     );
   } */
 
-  Widget WidgetCategoryLine(String categoryName, ref, context) {
-    return GestureDetector(
-      onTap: () {
-        ref.read(actualCategoryScreenProvider.notifier).state = categoryName;
-        context.go('/categoryList');
-      },
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(15, 5, 5, 5),
-        child: Align(
-          alignment: Alignment.topLeft,
-          child: Text(
-            categoryName,
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold),
-          ),
+  Widget WidgetCategoryLine(String categoryName) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(15, 5, 5, 5),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Text(
+          categoryName,
+          style:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
     );

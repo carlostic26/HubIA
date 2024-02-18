@@ -3,7 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:math';
 
-class DbHandlerIA {
+class DatabaseHandlerIA {
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
     return openDatabase(
@@ -79,7 +79,10 @@ class DbHandlerIA {
             '("nombre ia","text","urlimage", "urlweb", "/n/nEsta herramienta de IA ha sido recopilada por la app HubIA. Esperamos la disfrutes y regreses para conocer las demás IAs que tenemos para ti.", "url_tutorial"),'
             '("nombre ia","text","urlimage", "urlweb", "/n/nEsta herramienta de IA ha sido recopilada por la app HubIA. Esperamos la disfrutes y regreses para conocer las demás IAs que tenemos para ti.", "url_tutorial"),'
             '("nombre ia","text","urlimage", "urlweb", "/n/nEsta herramienta de IA ha sido recopilada por la app HubIA. Esperamos la disfrutes y regreses para conocer las demás IAs que tenemos para ti.", "url_tutorial"),'
-
+            //
+            '("nombre ia","audio","urlimage", "urlweb", "/n/nEsta herramienta de IA ha sido recopilada por la app HubIA. Esperamos la disfrutes y regreses para conocer las demás IAs que tenemos para ti.", "url_tutorial"),'
+            '("nombre ia","audio","urlimage", "urlweb", "/n/nEsta herramienta de IA ha sido recopilada por la app HubIA. Esperamos la disfrutes y regreses para conocer las demás IAs que tenemos para ti.", "url_tutorial"),'
+            '("nombre ia","audio","urlimage", "urlweb", "/n/nEsta herramienta de IA ha sido recopilada por la app HubIA. Esperamos la disfrutes y regreses para conocer las demás IAs que tenemos para ti.", "url_tutorial"),'
             //
             '("PimEyes","other","https://blogger.googleusercontent.com/img/a/AVvXsEg-ckzVyJUaEHpKMYgPhb6mFE7qiuhLkiC3_aRzaMs_WXDgBBBqklew06G_JOrwUKd9OgC5bWZcmjkVcraXGWTWvgb3rnuRdjDhBKwHrIC2XEgJELeyeHfqKdq5BC2iYc6KV6pRXBjnZ04UMD9i130jpGq5-zjgXir81cekfZRcgjs0px8OR_jR_CMl", "https://pimeyes.com/en", "PimEyes es un motor de búsqueda en línea que recorre Internet para encontrar imágenes que contengan rostros dados. Utiliza tecnologías de búsqueda por reconocimiento facial para realizar una búsqueda inversa de imágenes. Al subir una foto, puedes descubrir dónde se publican tus imágenes, proteger tu privacidad y reclamar derechos de imagen. Es una herramienta valiosa para fotógrafos, diseñadores y creadores de contenido que desean mejorar la calidad visual de sus fotos desenfocadas/n/nEsta herramienta de IA ha sido recopilada por la app HubIA. Esperamos la disfrutes y regreses para conocer las demás IAs que tenemos para ti.", "https://youtu.be/3sSa8Rv5Mbo"),'
             '("nombre ia","other","urlimage", "urlweb", "/n/nEsta herramienta de IA ha sido recopilada por la app HubIA. Esperamos la disfrutes y regreses para conocer las demás IAs que tenemos para ti.", "url_tutorial"),'

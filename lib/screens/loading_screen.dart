@@ -17,7 +17,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 10), () {
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         buttonEnabled = true;
       });
@@ -69,7 +69,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                       lineHeight: 8,
                       percent: 100 / 100,
                       animation: true,
-                      animationDuration: 10000, // 8.5 sec para cargar la barra
+                      animationDuration: 2000, // 8.5 sec para cargar la barra
                       progressColor: Colors.blueGrey,
                     ),
                   ],

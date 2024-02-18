@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hubia/screens/screens_barril.dart';
 
 class ListCategoryScreen extends ConsumerWidget {
@@ -8,45 +9,57 @@ class ListCategoryScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    late DbHandlerIA handler;
+    late DatabaseHandlerIA dbhandler;
 
     Future<List<IA>>? _ia;
 
-    final actualCategoryScreen = ref.watch(actualCategoryScreenProvider);
+    final selectedCategory = ref.watch(selecCatProvider);
 
-    return const Scaffold(
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-            Text('hpla'),
-          ],
+    return Scaffold(
+      body: Stack(children: [
+        AnimatedBackground(),
+        SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              AppBar(
+                title: Text('$selectedCategory'),
+                leading: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    context.pop();
+                  },
+                ),
+              ),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+              const Text('hpla'),
+            ],
+          ),
         ),
-      ),
+      ]),
     );
   }
 }
