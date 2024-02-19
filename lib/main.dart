@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         ),
 
         routerConfig: appRoutes(),
+
         //home: const LoadingScreen(),
       ),
     );

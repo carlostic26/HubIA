@@ -14,13 +14,17 @@ final getCategoryIaProvider = FutureProvider<List<IA>>((ref) async {
 
   final selectedCategory = ref.watch(selecCatProvider.notifier).state;
 
+  print('atencion, este es el valor de selectedCategory: $selectedCategory');
+
   if (selectedCategory != null) {
     // Obtiene la lista de ias según la categoría
-    final List<IA> listIA = await dBhandler.getIAsByCategory(selectedCategory);
+    final List<IA> listIA = await dBhandler.getIAByCategory(selectedCategory);
+    print('atencion; ESTA es la listIA: $listIA');
     return listIA;
   } else {
-    // Si no hay una categoría seleccionada, devuelve una lista vacía
-    return [];
+    // Obtiene la lista de ias según la categoría
+    final List<IA> listIA = await dBhandler.getIAByCategory('video');
+    return listIA;
   }
 });
 
