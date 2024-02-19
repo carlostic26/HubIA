@@ -95,13 +95,17 @@ class ListCategoryScreen extends ConsumerWidget {
                             if (loadingProgress == null) {
                               return child;
                             } else {
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes !=
-                                          null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                      : null,
+                              return SizedBox(
+                                height: 200,
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes !=
+                                            null
+                                        ? loadingProgress
+                                                .cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes!
+                                        : null,
+                                  ),
                                 ),
                               );
                             }
@@ -123,7 +127,7 @@ class ListCategoryScreen extends ConsumerWidget {
                             ),
                           ),
                         ),
-                        // Título o texto ia.name
+                        // Título
                         Positioned(
                           bottom: 0,
                           left: 0,
@@ -140,7 +144,7 @@ class ListCategoryScreen extends ConsumerWidget {
                             ),
                           ),
                         ),
-// btn acceder
+                        // btn acceder
                         Positioned(
                           bottom: 2,
                           right: 7,
@@ -151,7 +155,7 @@ class ListCategoryScreen extends ConsumerWidget {
                               backgroundColor:
                                   Colors.grey, // Color de fondo gris
                               onPressed: () {
-                                context.go('/home');
+                                context.go('/detailScreen');
                               },
                               child: const Icon(
                                 Icons.keyboard_arrow_right,

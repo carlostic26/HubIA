@@ -15,9 +15,6 @@ final getCategoryIaProvider = FutureProvider<List<IA>>((ref) async {
   final selectedCategory = ref.watch(
       selecCatProvider); // Esto observa el Provider de categoría seleccionada
 
-  print('atencion, este es el valor de selectedCategory: $selecCatProvider');
-  print('atencion, este es el valor de selectedCategory: $selectedCategory');
-
   if (selectedCategory != null) {
     final List<IA> listIA = await dBhandler.getIAByCategory(selectedCategory);
     return listIA;
