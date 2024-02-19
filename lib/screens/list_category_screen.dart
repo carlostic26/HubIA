@@ -11,8 +11,6 @@ class ListCategoryScreen extends ConsumerWidget {
     double width = MediaQuery.of(context).size.width;
     late DatabaseHandlerIA dbhandler;
 
-    Future<List<IA>>? _ia;
-
     final selectedCategory = ref.watch(selecCatProvider);
 
     final futureIAList = ref.watch(getCategoryIaProvider.future);
@@ -33,74 +31,28 @@ class ListCategoryScreen extends ConsumerWidget {
         ],
       ),
     );
+  }
 
-/*     return Scaffold(
-      body: Stack(children: [
-        AnimatedBackground(),
-        SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              AppBar(
-                elevation: 0,
-                backgroundColor: Colors.transparent,
-                title: Text(
-                  '$selectedCategory',
-                  style: const TextStyle(color: Colors.white),
-                ),
-                leading: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    context.go('/home');
-                  },
-                ),
-              ),
-              FutureBuilder<List<IA>>(
-                future: futureIAList,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator(); // Muestra un indicador de carga
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Text('No hay elementos en esta categoría.');
-                  } else {
-                    final listIA = snapshot.data!;
-                    //var items = snapshot.data ?? <IA>[];
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 1.0,
-                        vertical: 1.0,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: ListView.builder(
-                        itemCount: listIA.length,
-                        itemBuilder: (context, index) {
-                          final ia = listIA[index];
-                          return ListTile(
-                            title: Text(ia.name ?? 'es nulo'),
-                          );
-                        },
-                      ),
-                    );
-                  }
-                },
-              ),
-              const Text('hpla'),
-              const Text('hpla'),
-              const Text('hpla'),
-            ],
-          ),
+  AppBar _appBar(String? selectedCategory, BuildContext context) {
+    return AppBar(
+      centerTitle: true,
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      title: Text(
+        '$selectedCategory',
+        style: const TextStyle(color: Colors.white),
+      ),
+      leading: IconButton(
+        icon: const Icon(
+          Icons.arrow_back,
+          color: Colors.white,
         ),
-      ]),
+        onPressed: () {
+          //context.go('/home');
+          context.pop();
+        },
+      ),
     );
- 
-  */
   }
 
   FutureBuilder<List<IA>> _futureBuilderListIA(Future<List<IA>> futureIAList) {
@@ -128,7 +80,7 @@ class ListCategoryScreen extends ConsumerWidget {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  //crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Stack(
                       children: [
@@ -155,7 +107,7 @@ class ListCategoryScreen extends ConsumerWidget {
                             }
                           },
                         ),
-                        // Efecto de degradado de transparente a negro
+
                         Positioned.fill(
                           child: Container(
                             decoration: BoxDecoration(
@@ -188,6 +140,26 @@ class ListCategoryScreen extends ConsumerWidget {
                             ),
                           ),
                         ),
+// btn acceder
+                        Positioned(
+                          bottom: 2,
+                          right: 7,
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: FloatingActionButton(
+                              mini: true,
+                              backgroundColor:
+                                  Colors.grey, // Color de fondo gris
+                              onPressed: () {
+                                context.go('/home');
+                              },
+                              child: const Icon(
+                                Icons.keyboard_arrow_right,
+                                color: Colors.white, // Color del icono blanco
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     Padding(
@@ -211,30 +183,6 @@ class ListCategoryScreen extends ConsumerWidget {
           );
         }
       },
-    );
-  }
-
-/*   Expanded _futureAIList(Future<List<IA>> futureIAList) {
-    return;
-  }
- */
-  AppBar _appBar(String? selectedCategory, BuildContext context) {
-    return AppBar(
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      title: Text(
-        '$selectedCategory',
-        style: const TextStyle(color: Colors.white),
-      ),
-      leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          context.go('/home');
-        },
-      ),
     );
   }
 }

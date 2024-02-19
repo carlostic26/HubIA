@@ -2,7 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hubia/screens/screens_barril.dart';
 
 GoRouter appRoutes() {
-  return GoRouter(initialLocation: '/loading', routes: [
+  return GoRouter(initialLocation: '/home', routes: [
     GoRoute(
       path: '/home',
       builder: (context, state) => const HomeScreen(),
@@ -16,7 +16,7 @@ GoRouter appRoutes() {
       builder: (context, state) => const LoadingScreen(),
     ),
     GoRoute(
-      path: '/home',
+      path: '/detailScreen',
       builder: (context, state) => const DetailScreen(),
     ),
   ]);

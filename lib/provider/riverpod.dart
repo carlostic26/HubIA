@@ -12,19 +12,17 @@ final getCategoryIaProvider = FutureProvider<List<IA>>((ref) async {
   final dBhandler = DatabaseHandlerIA();
   await dBhandler.initializeDB();
 
-  final selectedCategory = ref.watch(selecCatProvider.notifier).state;
+  final selectedCategory = ref.watch(
+      selecCatProvider); // Esto observa el Provider de categoría seleccionada
 
+  print('atencion, este es el valor de selectedCategory: $selecCatProvider');
   print('atencion, este es el valor de selectedCategory: $selectedCategory');
 
   if (selectedCategory != null) {
-    // Obtiene la lista de ias según la categoría
     final List<IA> listIA = await dBhandler.getIAByCategory(selectedCategory);
-    print('atencion; ESTA es la listIA: $listIA');
     return listIA;
   } else {
-    // Obtiene la lista de ias según la categoría
-    final List<IA> listIA = await dBhandler.getIAByCategory('video');
-    return listIA;
+    return [];
   }
 });
 

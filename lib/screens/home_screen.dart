@@ -52,7 +52,7 @@ class HomeScreen extends ConsumerWidget {
                   GestureDetector(
                       onTap: () {
                         ref.read(selecCatProvider.notifier).state = 'image';
-                        context.go('/categoryList');
+                        context.push('/categoryList');
                       },
                       child: Column(
                         children: [
@@ -65,7 +65,7 @@ class HomeScreen extends ConsumerWidget {
                   GestureDetector(
                     onTap: () {
                       ref.read(selecCatProvider.notifier).state = 'video';
-                      context.go('/categoryList');
+                      context.push('/categoryList');
                     },
                     child: Column(
                       children: [
@@ -79,7 +79,7 @@ class HomeScreen extends ConsumerWidget {
                   GestureDetector(
                     onTap: () {
                       ref.read(selecCatProvider.notifier).state = 'audio';
-                      context.go('/categoryList');
+                      context.push('/categoryList');
                     },
                     child: Column(
                       children: [
@@ -93,7 +93,7 @@ class HomeScreen extends ConsumerWidget {
                   GestureDetector(
                     onTap: () {
                       ref.read(selecCatProvider.notifier).state = 'text';
-                      context.go('/categoryList');
+                      context.push('/categoryList');
                     },
                     child: Column(
                       children: [
@@ -107,7 +107,7 @@ class HomeScreen extends ConsumerWidget {
                   GestureDetector(
                     onTap: () {
                       ref.read(selecCatProvider.notifier).state = 'other';
-                      context.go('/categoryList');
+                      context.push('/categoryList');
                     },
                     child: Column(
                       children: [
@@ -184,20 +184,20 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
             _drawerListTileWidget('Buscar una IA', Icons.search, () {
-              context.go('/buscarIA');
+              context.push('/buscarIA');
             }),
             _newDrawerListTileWidget('Categorias', Icons.category, () {
-              context.go('/categoryList');
+              context.push('/categoryList');
             }),
             _drawerListTileWidget('¿Problemas para ingresar?',
                 Icons.sentiment_very_dissatisfied_sharp, () {
-              context.go('/problemasIngreso');
+              context.push('/problemasIngreso');
             }),
             _drawerListTileWidget('Ayúdanos a mejorar', Icons.feedback, () {
-              context.go('/feedback');
+              context.push('/feedback');
             }),
             _drawerListTileWidget('Eliminar anuncios', Icons.auto_delete, () {
-              context.go('/eliminarAnuncios');
+              context.push('/eliminarAnuncios');
             }),
             const SizedBox(height: 20),
             const Divider(
@@ -208,7 +208,7 @@ class HomeScreen extends ConsumerWidget {
             _drawerListTileWidget(
                 'Nuestras redes', Icons.supervised_user_circle, () {}),
             _drawerListTileWidget('Politica de privacidad', Icons.policy, () {
-              context.go('/politica');
+              context.push('/politica');
             }),
           ],
         ),
