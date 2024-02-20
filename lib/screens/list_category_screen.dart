@@ -48,8 +48,11 @@ class ListCategoryScreen extends ConsumerWidget {
           color: Colors.white,
         ),
         onPressed: () {
-          //context.go('/home');
-          context.pop();
+          try {
+            context.pop();
+          } catch (e) {
+            context.go('/home');
+          }
         },
       ),
     );
@@ -82,10 +85,10 @@ class ListCategoryScreen extends ConsumerWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                   onTap: () {
-                    //envia el nombre de la ia seleccionada a riverpod
-                    ref.read(selectedIAProvider.notifier).state =
-                        ia.name ?? 'Nombre no disponible';
+                    //envio el index seleccionado de objeto "ia" o listIA[index] a la pantalla de detailScreen y desde detailScreen obtengo cada elemento de dicho objeto
+                    ref.read(selectedIAProvider.notifier).state = ia;
 
+                    //navego a la pantalla de detalles
                     context.push('/detailScreen');
                   },
                   child: Column(

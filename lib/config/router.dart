@@ -1,4 +1,3 @@
-import 'package:go_router/go_router.dart';
 import 'package:hubia/screens/screens_barril.dart';
 
 GoRouter appRoutes() {
@@ -19,7 +18,7 @@ GoRouter appRoutes() {
       ),
       GoRoute(
         path: '/detailScreen',
-        builder: (context, state) => const DetailScreen(),
+        builder: (context, state) => DetailScreen(),
       ),
     ],
   );
