@@ -16,3 +16,4 @@ export 'package:cached_network_image/cached_network_image.dart';
 export 'package:flutter_riverpod/flutter_riverpod.dart';
 export 'package:url_launcher/url_launcher.dart';
 export 'package:animated_text_kit/animated_text_kit.dart';
+export 'package:go_router/go_router.dart';

@@ -15,7 +15,8 @@ class MyCarousel extends StatefulWidget {
 class _MyCarouselState extends State<MyCarousel> {
   @override
   Widget build(BuildContext context) {
-    double widthCertifiedImage = 500;
+    double imageSize = 250;
+
     String loadingImg =
         'https://blogger.googleusercontent.com/img/a/AVvXsEjbWsuck6YxMLJQ8XSE1Hf7oP3qTbl0vbYlmidLWs76n5EgKJ714bmdkkJlLMZEXG4JjpMkkBJDHtUAHK1UJuHea5pJCjmSFSxk8X62tw93d-rOJxz38K8knBx95EOQWqbv3phWaFiB-tojm_ltY9ioDOO3Ydx9z6s4JeAWxzhy3esQJP7GjNSZjUvH';
 
@@ -26,26 +27,36 @@ class _MyCarouselState extends State<MyCarousel> {
           Row(
             children: [
               Expanded(
-                child: CachedNetworkImage(
-                  imageUrl: widget.categoryList[i].imageUrl ?? loadingImg,
-                  width: widthCertifiedImage,
-                  fit: BoxFit.contain,
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
-                  placeholderFadeInDuration: const Duration(milliseconds: 500),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                child: SizedBox(
+                  width: imageSize,
+                  height: imageSize,
+                  child: CachedNetworkImage(
+                    imageUrl: widget.categoryList[i].imageUrl ?? loadingImg,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    placeholderFadeInDuration:
+                        const Duration(milliseconds: 500),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
                 ),
               ),
               SizedBox(width: 10), // Adjust spacing between images as needed
               Expanded(
-                child: CachedNetworkImage(
-                  imageUrl: widget.categoryList[i + 1].imageUrl ?? loadingImg,
-                  width: widthCertifiedImage,
-                  fit: BoxFit.contain,
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
-                  placeholderFadeInDuration: const Duration(milliseconds: 500),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                child: SizedBox(
+                  width: imageSize,
+                  height: imageSize,
+                  child: CachedNetworkImage(
+                    imageUrl: widget.categoryList[i + 1].imageUrl ?? loadingImg,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    placeholderFadeInDuration:
+                        const Duration(milliseconds: 500),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
                 ),
               ),
             ],
@@ -54,14 +65,17 @@ class _MyCarouselState extends State<MyCarousel> {
       } else {
         // In case the number of categories is odd, handle the last one individually
         combinedItems.add(
-          CachedNetworkImage(
-            imageUrl: widget.categoryList[i].imageUrl ?? loadingImg,
-            width: widthCertifiedImage,
-            fit: BoxFit.contain,
-            placeholder: (context, url) =>
-                const Center(child: CircularProgressIndicator()),
-            placeholderFadeInDuration: const Duration(milliseconds: 500),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
+          SizedBox(
+            width: imageSize,
+            height: imageSize,
+            child: CachedNetworkImage(
+              imageUrl: widget.categoryList[i].imageUrl ?? loadingImg,
+              fit: BoxFit.cover,
+              placeholder: (context, url) =>
+                  const Center(child: CircularProgressIndicator()),
+              placeholderFadeInDuration: const Duration(milliseconds: 500),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
           ),
         );
       }

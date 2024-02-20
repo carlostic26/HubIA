@@ -24,7 +24,7 @@ class ListCategoryScreen extends ConsumerWidget {
             children: [
               _appBar(selectedCategory, context),
               Expanded(
-                child: _futureBuilderListIA(futureIAList),
+                child: _futureBuilderListIA(futureIAList, ref),
               ),
             ],
           ),
@@ -55,7 +55,8 @@ class ListCategoryScreen extends ConsumerWidget {
     );
   }
 
-  FutureBuilder<List<IA>> _futureBuilderListIA(Future<List<IA>> futureIAList) {
+  FutureBuilder<List<IA>> _futureBuilderListIA(
+      Future<List<IA>> futureIAList, ref) {
     return FutureBuilder<List<IA>>(
       future: futureIAList,
       builder: (context, snapshot) {
@@ -79,108 +80,119 @@ class ListCategoryScreen extends ConsumerWidget {
               final ia = listIA[index];
               return Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  //crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(
-                      children: [
-                        // Imagen
-                        Image.network(
-                          ia.imageUrl ?? '',
-                          height: 200,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          loadingBuilder: (BuildContext context, Widget child,
-                              ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            } else {
-                              return SizedBox(
-                                height: 200,
-                                child: Center(
-                                  child: CircularProgressIndicator(
-                                    value: loadingProgress.expectedTotalBytes !=
-                                            null
-                                        ? loadingProgress
-                                                .cumulativeBytesLoaded /
-                                            loadingProgress.expectedTotalBytes!
-                                        : null,
-                                  ),
-                                ),
-                              );
-                            }
-                          },
-                        ),
+                child: GestureDetector(
+                  onTap: () {
+                    //envia el nombre de la ia seleccionada a riverpod
+                    ref.read(selectedIAProvider.notifier).state =
+                        ia.name ?? 'Nombre no disponible';
 
-                        Positioned.fill(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.center,
-                                colors: [
-                                  Colors.black
-                                      .withOpacity(0.95), // Opacidad ajustable
-                                  Colors.transparent,
-                                ],
+                    context.push('/detailScreen');
+                  },
+                  child: Column(
+                    //crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Stack(
+                        children: [
+                          // Imagen
+                          Image.network(
+                            ia.imageUrl ?? '',
+                            height: 200,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child;
+                              } else {
+                                return SizedBox(
+                                  height: 200,
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+
+                          Positioned.fill(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.center,
+                                  colors: [
+                                    Colors.black.withOpacity(
+                                        0.95), // Opacidad ajustable
+                                    Colors.transparent,
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        // Título
-                        Positioned(
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              ia.name ?? 'Nombre no disponible',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                          // Título
+                          Positioned(
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                ia.name ?? 'Nombre no disponible',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        // btn acceder
-                        Positioned(
-                          bottom: 2,
-                          right: 7,
-                          child: Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: FloatingActionButton(
-                              mini: true,
-                              backgroundColor:
-                                  Colors.grey, // Color de fondo gris
-                              onPressed: () {
-                                context.go('/detailScreen');
-                              },
-                              child: const Icon(
-                                Icons.keyboard_arrow_right,
-                                color: Colors.white, // Color del icono blanco
+                          // btn acceder
+                          Positioned(
+                            bottom: 2,
+                            right: 7,
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: FloatingActionButton(
+                                mini: true,
+                                backgroundColor:
+                                    Colors.grey, // Color de fondo gris
+                                onPressed: () {
+                                  context.go('/detailScreen');
+                                },
+                                child: const Icon(
+                                  Icons.keyboard_arrow_right,
+                                  color: Colors.white, // Color del icono blanco
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        ia.description ?? 'Descripción no disponible',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
-                        maxLines: 3, // Trunca la descripción a 3 líneas
-                        overflow: TextOverflow
-                            .ellipsis, // Muestra puntos suspensivos al final si la descripción se trunca
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          ia.description ?? 'Descripción no disponible',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                          maxLines: 3, // Trunca la descripción a 3 líneas
+                          overflow: TextOverflow
+                              .ellipsis, // Muestra puntos suspensivos al final si la descripción se trunca
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                  ),
                 ),
               );
             },

@@ -125,25 +125,6 @@ class HomeScreen extends ConsumerWidget {
         drawer: _getDrawer(context));
   }
 
-/*   WidgetCarrusel(context, category) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.25,
-      child: Center(
-        child: CarouselSlider(
-          items: category,
-          options: CarouselOptions(
-              height: MediaQuery.of(context).size.height * 0.25,
-              autoPlayInterval: const Duration(seconds: 2),
-              enableInfiniteScroll: false,
-              autoPlay: true,
-              enlargeCenterPage: true,
-              viewportFraction: 0.9),
-        ),
-      ),
-    );
-  } */
-
   Widget WidgetCategoryLine(String categoryName) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 5, 5, 5),

@@ -7,6 +7,7 @@ final isButtonVisible_rp = StateProvider((ref) => false);
 final buttonEnabled_rp = StateProvider((ref) => false);
 
 final selecCatProvider = StateProvider<String?>((ref) => null);
+final selectedIAProvider = StateProvider<String?>((ref) => null);
 
 final getCategoryIaProvider = FutureProvider<List<IA>>((ref) async {
   final dBhandler = DatabaseHandlerIA();
