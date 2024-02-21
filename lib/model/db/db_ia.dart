@@ -129,7 +129,7 @@ class DatabaseHandlerIA {
     final db = await initializeDB();
     await db.insert(
       'favorite_ias',
-      {'ia_name': nameIa},
+      {'name': nameIa},
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
@@ -137,7 +137,7 @@ class DatabaseHandlerIA {
   Future<List<IA>> getFavoriteIAs() async {
     final db = await initializeDB();
     final List<Map<String, dynamic>> queryResult = await db.rawQuery(
-      'SELECT * FROM access_ia WHERE ia_name IN (SELECT ia_name FROM favorite_ias)',
+      'SELECT * FROM access_ia WHERE name IN (SELECT name FROM favorite_ias)',
     );
     return queryResult.map((e) => IA.fromMap(e)).toList();
   }
@@ -146,7 +146,7 @@ class DatabaseHandlerIA {
     final db = await initializeDB();
     await db.delete(
       'favorite_ias',
-      where: 'ia_name = ?',
+      where: 'name = ?',
       whereArgs: [nameIa],
     );
   }

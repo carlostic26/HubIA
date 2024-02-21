@@ -8,6 +8,7 @@ final buttonEnabled_rp = StateProvider((ref) => false);
 
 final selecCatProvider = StateProvider<String?>((ref) => null);
 final selectedIAProvider = StateProvider<IA?>((ref) => null);
+final likeProvider = StateProvider<bool>((ref) => false);
 
 final getCategoryIaProvider = FutureProvider<List<IA>>((ref) async {
   final dBhandler = DatabaseHandlerIA();
@@ -22,6 +23,14 @@ final getCategoryIaProvider = FutureProvider<List<IA>>((ref) async {
   } else {
     return [];
   }
+});
+
+final isIAFavoritedProvider =
+    FutureProvider.autoDispose.family<bool, String>((ref, iaName) async {
+  final dbHandler = DatabaseHandlerIA();
+  await dbHandler.initializeDB();
+  final favoriteIAs = await dbHandler.getFavoriteIAs();
+  return favoriteIAs.any((ia) => ia.name == iaName);
 });
 
 // image ---
