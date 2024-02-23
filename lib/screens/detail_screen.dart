@@ -8,9 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hubia/screens/screens_barril.dart';
 
 class DetailScreen extends ConsumerWidget {
-  final IA? ia;
-
-  DetailScreen({this.ia, Key? key}) : super(key: key);
+  DetailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,7 +19,7 @@ class DetailScreen extends ConsumerWidget {
 
     final ia = ref.watch(selectedIAProvider.notifier).state;
     //final isLiked = ref.watch(likeProvider);
-    final dbhandler = DatabaseHandlerIA(); // Inicializar dbhandler
+    //final dbhandler = DatabaseHandlerIA(); // Inicializar dbhandler
 
     final isLiked = ref.watch(isIAFavoritedProvider(
         ia!.name!)); // Observar el estado de favorito para el IA actual
@@ -33,8 +31,7 @@ class DetailScreen extends ConsumerWidget {
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
-              _appBar(ia != null ? ia.name.toString() : 'Nombre no disponible',
-                  context),
+              _appBar(ia.name.toString(), context),
               //IMAGEN TUTORIAL
               Center(
                 child: Column(
@@ -182,17 +179,7 @@ class DetailScreen extends ConsumerWidget {
                                 ],
                               ),
                               const SizedBox(
-                                height: 30,
-                              ),
-                              InkWell(
-                                child: const Text('¿Cuál es la diferencia?',
-                                    style: TextStyle(
-                                        fontSize: 11,
-                                        decoration: TextDecoration.underline,
-                                        color: Colors.grey)),
-                                onTap: () {
-                                  //DialogDiferencia(context);
-                                },
+                                height: 40,
                               ),
                             ],
                           ),
@@ -269,28 +256,22 @@ class DetailScreen extends ConsumerWidget {
                 ],
               ),
 
-              //Description
+//Description
               Padding(
                 padding: const EdgeInsets.all(8),
-                child: RichText(
-                  textAlign: TextAlign.justify,
-                  text: TextSpan(
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: ia != null
-                            ? ia.description.toString()
-                            : 'Descripción no disponible',
-                      ),
-                    ],
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: ia.description!
+                      .split('/n')
+                      .map((line) => Text(line,
+                          style: const TextStyle(color: Colors.white),
+                          textAlign: TextAlign.justify))
+                      .toList(),
                 ),
               ),
 
               SizedBox(
-                height: height * 0.05,
+                height: height * 0.03,
               ),
 
               WidgetTablaInfo(
@@ -298,7 +279,7 @@ class DetailScreen extends ConsumerWidget {
               ),
 
               SizedBox(
-                height: height * 0.05,
+                height: height * 0.03,
               ),
 
               //botones de ver tutorial y entrar a la ia en webview o interno
@@ -370,7 +351,7 @@ class DetailScreen extends ConsumerWidget {
                           //size: 70,
                         ),
                         label: const Text(
-                          'Ver ten YouTube',
+                          'Ver en YouTube',
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
@@ -388,52 +369,8 @@ class DetailScreen extends ConsumerWidget {
                               MaterialStateProperty.all<Color>(Colors.blueGrey),
                         ),
                         onPressed: () async {
-                          //Read all coins saved
-                          SharedPreferences coinsPrefs =
-                              await SharedPreferences.getInstance();
-
-                          int actualCoins =
-                              coinsPrefs.getInt('cursinCoinsSHP') ?? 2;
-
-                          //data that ask if the last acces to course is the same course in the moment:
-                          SharedPreferences lastCourse =
-                              await SharedPreferences.getInstance();
-                          lastCourse.getString('lastCourse');
-
-                          if (actualCoins >= 12 ||
-                              ia.name == lastCourse.getString('lastCourse')) {
-                            //Navigator.pop(context); //close dialog
-                            /*                           Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => courseOption(
-                                        nameCourse: widget.td.title,
-                                        urlCourse: widget.td.urlcourse,
-                                        imgCourse: widget.td.imgcourse,
-                                        nombreEntidad: widget.td.entidad,
-                                      )),
-                            ); */
-                          } else {
-                            //show dialog saying that ads keep service of the app
-                            /*                           showDialogCourse(
-                                context,
-                                widget.td.imgcourse,
-                                widget.td.title,
-                                widget.td.entidad,
-                                widget.td.urlcourse); */
-
-                            //PARA PRUEBAS DE TICNOTICOS
-                            /*Navigator.pop(context); //close dialog
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => courseOption(
-                                      nameCourse: widget.td.title,
-                                      urlCourse: widget.td.urlcourse,
-                                      imgCourse: widget.td.imgcourse,
-                                      nombreEntidad: widget.td.entidad,
-                                    )),
-                          );
-                          */
-                          }
+                          //PARA PRUEBAS DE TICNOTICOS
+                          context.go('/webView');
                         },
                         icon: const Icon(
                           Icons.rocket_launch,

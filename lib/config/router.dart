@@ -1,8 +1,9 @@
 import 'package:hubia/screens/screens_barril.dart';
+import 'package:hubia/screens/webview.dart';
 
 GoRouter appRoutes() {
   return GoRouter(
-    initialLocation: '/home',
+    initialLocation: '/loading',
     routes: [
       GoRoute(
         path: '/home',
@@ -19,6 +20,10 @@ GoRouter appRoutes() {
       GoRoute(
         path: '/detailScreen',
         builder: (context, state) => DetailScreen(),
+      ),
+      GoRoute(
+        path: '/webView',
+        builder: (context, state) => const WebViewScreen(),
       ),
     ],
   );

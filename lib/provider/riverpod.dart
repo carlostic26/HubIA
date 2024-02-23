@@ -9,6 +9,7 @@ final buttonEnabled_rp = StateProvider((ref) => false);
 final selecCatProvider = StateProvider<String?>((ref) => null);
 final selectedIAProvider = StateProvider<IA?>((ref) => null);
 final likeProvider = StateProvider<bool>((ref) => false);
+final loadingProvider = StateProvider<bool>((ref) => true);
 
 final getCategoryIaProvider = FutureProvider<List<IA>>((ref) async {
   final dBhandler = DatabaseHandlerIA();
