@@ -25,6 +25,10 @@ GoRouter appRoutes() {
         path: '/webView',
         builder: (context, state) => const WebViewScreen(),
       ),
+      GoRoute(
+        path: '/search',
+        builder: (context, state) => SearchIA(),
+      ),
     ],
   );
 }

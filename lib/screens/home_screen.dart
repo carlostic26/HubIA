@@ -200,9 +200,12 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
             _drawerListTileWidget('Buscar una IA', Icons.search, () {
-              context.push('/buscarIA');
+              context.push('/search');
             }),
             _newDrawerListTileWidget('Categorias', Icons.category, () {
+              //context.push('/categoryList');
+            }),
+            _newDrawerListTileWidget('IAS favoritos', Icons.favorite, () {
               //context.push('/categoryList');
             }),
             _drawerListTileWidget('¿Problemas para ingresar?',

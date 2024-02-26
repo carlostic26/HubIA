@@ -109,6 +109,13 @@ class DatabaseHandlerIA {
     return queryResult.map((e) => IA.fromMap(e)).toList();
   }
 
+  Future<List<IA>> getIAByPalabraClave(String? palabraClave) async {
+    final db = await initializeDB();
+    final List<Map<String, dynamic>> queryResult = await db.rawQuery(
+        'SELECT * FROM access_ia WHERE name LIKE ?', ['%$palabraClave%']);
+    return queryResult.map((e) => IA.fromMap(e)).toList();
+  }
+
   /* 
     //PARA IMPLEMENTAR EL METODO getIAsByCategory()
     List<IA> IADeArtes = await getIAsByCategory('Artes');

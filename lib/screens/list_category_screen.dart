@@ -170,6 +170,8 @@ class ListCategoryScreen extends ConsumerWidget {
                                 backgroundColor:
                                     Colors.grey, // Color de fondo gris
                                 onPressed: () {
+                                  ref.read(selectedIAProvider.notifier).state =
+                                      ia;
                                   context.go('/detailScreen');
                                 },
                                 child: const Icon(

@@ -1,4 +1,4 @@
-package com.example.hubia
+package com.blogspot.apphubia
 
 import io.flutter.embedding.android.FlutterActivity
 
