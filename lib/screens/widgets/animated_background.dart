@@ -18,8 +18,9 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
       duration: const Duration(seconds: 2),
     );
 
-    _animation = ColorTween(begin: Colors.grey[850], end: Colors.blueGrey)
-        .animate(_controller);
+    _animation =
+        ColorTween(begin: Color.fromARGB(255, 20, 28, 51), end: Colors.blueGrey)
+            .animate(_controller);
 
     _controller.forward();
 

@@ -136,26 +136,22 @@ class DetailScreen extends ConsumerWidget {
                                       size: 80,
                                     ),
                                   ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        //openUrl();
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        elevation: 0,
-                                        backgroundColor: Colors.transparent,
-                                        disabledForegroundColor:
-                                            Colors.transparent,
-                                        disabledBackgroundColor:
-                                            Colors.transparent,
-                                      ),
-                                      child: const FaIcon(
-                                        FontAwesomeIcons.youtube,
-                                        color: Colors.red,
-                                        size: 70,
-                                      ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      //openUrl();
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      elevation: 0,
+                                      backgroundColor: Colors.transparent,
+                                      disabledForegroundColor:
+                                          Colors.transparent,
+                                      disabledBackgroundColor:
+                                          Colors.transparent,
+                                    ),
+                                    child: const FaIcon(
+                                      FontAwesomeIcons.youtube,
+                                      color: Colors.red,
+                                      size: 70,
                                     ),
                                   ),
                                 ],
@@ -371,6 +367,15 @@ class DetailScreen extends ConsumerWidget {
                         onPressed: () async {
                           //PARA PRUEBAS DE TICNOTICOS
                           context.go('/webView');
+
+                          final scaffoldMessenger =
+                              ScaffoldMessenger.of(context);
+                          scaffoldMessenger.showSnackBar(
+                            const SnackBar(
+                              content: Text('Cargando el sitio...'),
+                              duration: Duration(seconds: 5),
+                            ),
+                          );
                         },
                         icon: const Icon(
                           Icons.rocket_launch,
@@ -469,7 +474,7 @@ class WidgetTablaInfo extends StatelessWidget {
               child: Center(
                 child: RichText(
                     text: const TextSpan(
-                  text: "🏢 Desarrollado por:",
+                  text: "🏢 Presentado por:",
                   style: TextStyle(
                     fontSize: 15.0,
                     color: Colors.white,
@@ -481,7 +486,9 @@ class WidgetTablaInfo extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Text(
-                    ia != null ? ia!.webUrl.toString() : 'Nombre no disponible',
+                    ia != null
+                        ? cleanUrl(ia!.webUrl.toString())
+                        : 'Nombre no disponible',
                     style: const TextStyle(
                         color: Colors.white, fontWeight: FontWeight.normal)),
               ),
@@ -493,5 +500,10 @@ class WidgetTablaInfo extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String cleanUrl(String url) {
+    final uri = Uri.parse(url);
+    return uri.host;
   }
 }

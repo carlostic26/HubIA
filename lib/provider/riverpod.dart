@@ -11,8 +11,9 @@ final selectedIAProvider = StateProvider<IA?>((ref) => null);
 final likeProvider = StateProvider<bool>((ref) => false);
 final loadingProvider = StateProvider<bool>((ref) => true);
 
+final dBhandler = DatabaseHandlerIA();
+
 final getCategoryIaProvider = FutureProvider<List<IA>>((ref) async {
-  final dBhandler = DatabaseHandlerIA();
   await dBhandler.initializeDB();
 
   final selectedCategory = ref.watch(
@@ -65,7 +66,29 @@ final isIAFavoritedProvider =
 //others ---
 // gemini https://deepmind.google/technologies/gemini/#introduction
 
-final imagesCategoryProvider = StateProvider<List<IA>>((ref) {
+final imagesCategoryProvider = FutureProvider<List<IA>>((ref) async {
+  return await dBhandler.getImgByCategory('image');
+});
+
+final videoCategoryProvider = FutureProvider<List<IA>>((ref) async {
+  return await dBhandler.getImgByCategory('video');
+});
+
+final audioCategoryProvider = FutureProvider<List<IA>>((ref) async {
+  return await dBhandler.getImgByCategory('audio');
+});
+
+final textCategoryProvider = FutureProvider<List<IA>>((ref) async {
+  return await dBhandler.getImgByCategory('text');
+});
+
+final othersCategoryProvider = FutureProvider<List<IA>>((ref) async {
+  return await dBhandler.getImgByCategory('other');
+});
+
+
+
+/* final imagesCategoryProvider = StateProvider<List<IA>>((ref) {
   return [
     IA(
       imageUrl:
@@ -189,3 +212,4 @@ final othersCategoryProvider = StateProvider<List<IA>>((ref) {
     IA(imageUrl: ''),
   ];
 });
+ */

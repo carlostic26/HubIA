@@ -58,7 +58,14 @@ class HomeScreen extends ConsumerWidget {
                         children: [
                           WidgetCategoryLine('📷 Imágenes'),
                           SizedBox(height: height * 0.02),
-                          MyCarousel(categoryList: imgUrlimages),
+                          imgUrlimages.when(
+                            data: (image) {
+                              return MyCarousel(categoryList: image);
+                            },
+                            loading: () => const CircularProgressIndicator(),
+                            error: (err, stack) =>
+                                Text('Ha ocurrido un error: $err'),
+                          ),
                         ],
                       )),
                   SizedBox(height: height * 0.02),
@@ -71,7 +78,14 @@ class HomeScreen extends ConsumerWidget {
                       children: [
                         WidgetCategoryLine('📽️ Videos'),
                         SizedBox(height: height * 0.02),
-                        MyCarousel(categoryList: imgUrlvideo),
+                        imgUrlvideo.when(
+                          data: (video) {
+                            return MyCarousel(categoryList: video);
+                          },
+                          loading: () => const CircularProgressIndicator(),
+                          error: (err, stack) =>
+                              Text('Ha ocurrido un error: $err'),
+                        ),
                       ],
                     ),
                   ),
@@ -85,7 +99,14 @@ class HomeScreen extends ConsumerWidget {
                       children: [
                         WidgetCategoryLine('🎶 Audio'),
                         SizedBox(height: height * 0.02),
-                        MyCarousel(categoryList: imgUrlaudio),
+                        imgUrlaudio.when(
+                          data: (audio) {
+                            return MyCarousel(categoryList: audio);
+                          },
+                          loading: () => const CircularProgressIndicator(),
+                          error: (err, stack) =>
+                              Text('Ha ocurrido un error: $err'),
+                        ),
                       ],
                     ),
                   ),
@@ -99,7 +120,14 @@ class HomeScreen extends ConsumerWidget {
                       children: [
                         WidgetCategoryLine('💬 Texto'),
                         SizedBox(height: height * 0.02),
-                        MyCarousel(categoryList: imgUrltext),
+                        imgUrltext.when(
+                          data: (text) {
+                            return MyCarousel(categoryList: text);
+                          },
+                          loading: () => const CircularProgressIndicator(),
+                          error: (err, stack) =>
+                              Text('Ha ocurrido un error: $err'),
+                        ),
                       ],
                     ),
                   ),
@@ -113,7 +141,14 @@ class HomeScreen extends ConsumerWidget {
                       children: [
                         WidgetCategoryLine('📌 Otros'),
                         SizedBox(height: height * 0.02),
-                        MyCarousel(categoryList: imgUrlothers),
+                        imgUrlothers.when(
+                          data: (other) {
+                            return MyCarousel(categoryList: other);
+                          },
+                          loading: () => const CircularProgressIndicator(),
+                          error: (err, stack) =>
+                              Text('Ha ocurrido un error: $err'),
+                        ),
                       ],
                     ),
                   ),
@@ -142,7 +177,7 @@ class HomeScreen extends ConsumerWidget {
   Widget _getDrawer(BuildContext context) {
     return Drawer(
       elevation: 1,
-      backgroundColor: Color.fromARGB(186, 22, 21, 21),
+      backgroundColor: const Color.fromARGB(186, 22, 21, 21),
       //elevation: 0,
       child: Container(
         //color: darkTheme == true ? Colors.black87 : Colors.white,
@@ -168,7 +203,7 @@ class HomeScreen extends ConsumerWidget {
               context.push('/buscarIA');
             }),
             _newDrawerListTileWidget('Categorias', Icons.category, () {
-              context.push('/categoryList');
+              //context.push('/categoryList');
             }),
             _drawerListTileWidget('¿Problemas para ingresar?',
                 Icons.sentiment_very_dissatisfied_sharp, () {
@@ -209,7 +244,7 @@ class HomeScreen extends ConsumerWidget {
           color: Colors.white,
         ),
         onTap: () {
-          go;
+          go();
         });
   }
 
