@@ -283,34 +283,38 @@ class DetailScreen extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    alignment: Alignment.topCenter,
-                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: Container(
-                      alignment: Alignment.topCenter,
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: ElevatedButton.icon(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.blueGrey),
-                        ),
-                        onPressed: () async {
-                          //Read all coins saved
-                          SharedPreferences coinsPrefs =
-                              await SharedPreferences.getInstance();
+                  ia.tutorialUrl.toString() != "url_tutorial"
+                      ? Container(
+                          alignment: Alignment.topCenter,
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: Container(
+                            alignment: Alignment.topCenter,
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: ElevatedButton.icon(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.blueGrey),
+                              ),
+                              onPressed: () async {
+                                //Read all coins saved
+                                SharedPreferences coinsPrefs =
+                                    await SharedPreferences.getInstance();
 
-                          int actualCoins =
-                              coinsPrefs.getInt('cursinCoinsSHP') ?? 2;
+                                int actualCoins =
+                                    coinsPrefs.getInt('cursinCoinsSHP') ?? 2;
 
-                          //data that ask if the last acces to course is the same course in the moment:
-                          SharedPreferences lastCourse =
-                              await SharedPreferences.getInstance();
-                          lastCourse.getString('lastCourse');
+                                //data that ask if the last acces to course is the same course in the moment:
+                                SharedPreferences lastCourse =
+                                    await SharedPreferences.getInstance();
+                                lastCourse.getString('lastCourse');
 
-                          if (actualCoins >= 12 ||
-                              ia.name == lastCourse.getString('lastCourse')) {
-                            //Navigator.pop(context); //close dialog
-                            /*                           Navigator.of(context).push(
+                                if (actualCoins >= 12 ||
+                                    ia.name ==
+                                        lastCourse.getString('lastCourse')) {
+                                  //Navigator.pop(context); //close dialog
+                                  /*                           Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => courseOption(
                                         nameCourse: widget.td.title,
@@ -319,17 +323,17 @@ class DetailScreen extends ConsumerWidget {
                                         nombreEntidad: widget.td.entidad,
                                       )),
                             ); */
-                          } else {
-                            //show dialog saying that ads keep service of the app
-                            /*                           showDialogCourse(
+                                } else {
+                                  //show dialog saying that ads keep service of the app
+                                  /*                           showDialogCourse(
                                 context,
                                 widget.td.imgcourse,
                                 widget.td.title,
                                 widget.td.entidad,
                                 widget.td.urlcourse); */
 
-                            //PARA PRUEBAS DE TICNOTICOS
-                            /*Navigator.pop(context); //close dialog
+                                  //PARA PRUEBAS DE TICNOTICOS
+                                  /*Navigator.pop(context); //close dialog
                           Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (context) => courseOption(
@@ -340,20 +344,21 @@ class DetailScreen extends ConsumerWidget {
                                     )),
                           );
                           */
-                          }
-                        },
-                        icon: const FaIcon(
-                          FontAwesomeIcons.youtube,
-                          color: Colors.white,
-                          //size: 70,
-                        ),
-                        label: const Text(
-                          'Ver en YouTube',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
+                                }
+                              },
+                              icon: const FaIcon(
+                                FontAwesomeIcons.youtube,
+                                color: Colors.white,
+                                //size: 70,
+                              ),
+                              label: const Text(
+                                'Ver en YouTube',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(),
                   Container(
                     alignment: Alignment.topCenter,
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
