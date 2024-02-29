@@ -132,7 +132,7 @@ class HomeScreen extends ConsumerWidget {
                     ),
                   ),
                   SizedBox(height: height * 0.02),
-                  GestureDetector(
+                  /*  GestureDetector(
                     onTap: () {
                       ref.read(selecCatProvider.notifier).state = 'other';
                       context.push('/categoryList');
@@ -151,7 +151,7 @@ class HomeScreen extends ConsumerWidget {
                         ),
                       ],
                     ),
-                  ),
+                  ), */
                 ],
               ),
             ),

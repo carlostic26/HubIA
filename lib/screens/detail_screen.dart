@@ -59,16 +59,18 @@ class DetailScreen extends ConsumerWidget {
                                   errorWidget: (context, url, error) =>
                                       const Icon(Icons.error),
                                 ),
-                                BackdropFilter(
-                                  filter: ImageFilter.blur(
-                                      sigmaX: 2.0,
-                                      sigmaY:
-                                          2.0), // Ajusta los valores según tu preferencia
-                                  child: Container(
-                                    color: Colors
-                                        .transparent, // Puedes ajustar el color de fondo desenfocado
-                                  ),
-                                ),
+                                ia.tutorialUrl.toString() != "url_tutorial"
+                                    ? BackdropFilter(
+                                        filter: ImageFilter.blur(
+                                            sigmaX: 2.0,
+                                            sigmaY:
+                                                2.0), // Ajusta los valores según tu preferencia
+                                        child: Container(
+                                          color: Colors
+                                              .transparent, // Puedes ajustar el color de fondo desenfocado
+                                        ),
+                                      )
+                                    : Container(),
                               ],
                             ),
                           ),
@@ -94,88 +96,91 @@ class DetailScreen extends ConsumerWidget {
                           ),
                         ),
 
-                        // Row para los botones
-                        Positioned(
-                          bottom: 20,
-                          left: 0,
-                          right: 0,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      //abrirCursoCursin();
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                              'Espera un momento mientras se carga el sitio'),
-                                          duration: Duration(seconds: 7),
+                        ia.tutorialUrl != "url_tutorial"
+                            ? // Row para los botones
+                            Positioned(
+                                bottom: 20,
+                                left: 0,
+                                right: 0,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            //abrirCursoCursin();
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                    'Espera un momento mientras se carga el sitio'),
+                                                duration: Duration(seconds: 7),
+                                              ),
+                                            );
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            elevation: 0,
+                                            backgroundColor: Colors.transparent,
+                                            disabledForegroundColor:
+                                                Colors.transparent,
+                                            disabledBackgroundColor:
+                                                Colors.transparent,
+                                          ),
+                                          child: const Icon(
+                                            Icons.play_arrow,
+                                            color: Colors.white,
+                                            size: 80,
+                                          ),
                                         ),
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      elevation: 0,
-                                      backgroundColor: Colors.transparent,
-                                      disabledForegroundColor:
-                                          Colors.transparent,
-                                      disabledBackgroundColor:
-                                          Colors.transparent,
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            //openUrl();
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            elevation: 0,
+                                            backgroundColor: Colors.transparent,
+                                            disabledForegroundColor:
+                                                Colors.transparent,
+                                            disabledBackgroundColor:
+                                                Colors.transparent,
+                                          ),
+                                          child: const FaIcon(
+                                            FontAwesomeIcons.youtube,
+                                            color: Colors.white,
+                                            size: 70,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    child: const Icon(
-                                      Icons.play_arrow,
-                                      color: Colors.white,
-                                      size: 80,
+                                    const Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(width: 15),
+                                        Text(
+                                          'Ver tutorial aqui  ',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        Text(
+                                          '-   Ó   -',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        Text(
+                                          '    Ver en YouTube',
+                                          style: TextStyle(color: Colors.white),
+                                        )
+                                      ],
                                     ),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      //openUrl();
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      elevation: 0,
-                                      backgroundColor: Colors.transparent,
-                                      disabledForegroundColor:
-                                          Colors.transparent,
-                                      disabledBackgroundColor:
-                                          Colors.transparent,
+                                    const SizedBox(
+                                      height: 40,
                                     ),
-                                    child: const FaIcon(
-                                      FontAwesomeIcons.youtube,
-                                      color: Colors.red,
-                                      size: 70,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(width: 15),
-                                  Text(
-                                    'Ver tutorial aqui  ',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  Text(
-                                    '-   Ó   -',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  Text(
-                                    '    Ver en YouTube',
-                                    style: TextStyle(color: Colors.white),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 40,
-                              ),
-                            ],
-                          ),
-                        ),
+                                  ],
+                                ),
+                              )
+                            : Container(),
                       ],
                     ),
                   ],
