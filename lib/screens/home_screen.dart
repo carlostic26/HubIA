@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hubia/screens/fav_screen.dart';
 import 'package:hubia/screens/screens_barril.dart';
 import 'package:hubia/provider/riverpod.dart';
 
@@ -206,7 +207,12 @@ class HomeScreen extends ConsumerWidget {
               //context.push('/categoryList');
             }),
             _newDrawerListTileWidget('IAS favoritos', Icons.favorite, () {
-              //context.push('/categoryList');
+              //Navigator.pushNamed(context, '/favs');
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => FavoriteScreen()),
+              );
             }),
             _drawerListTileWidget('¿Problemas para ingresar?',
                 Icons.sentiment_very_dissatisfied_sharp, () {

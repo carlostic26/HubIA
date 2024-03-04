@@ -28,6 +28,8 @@ final getCategoryIaProvider = FutureProvider<List<IA>>((ref) async {
   }
 });
 
+//aqui guardo un elemento o item de tipo ia
+
 final isIAFavoritedProvider =
     FutureProvider.autoDispose.family<bool, String>((ref, iaName) async {
   final dbHandler = DatabaseHandlerIA();

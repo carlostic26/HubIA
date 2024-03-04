@@ -504,6 +504,35 @@ class WidgetTablaInfo extends StatelessWidget {
         const Divider(
           color: Colors.grey,
         ),
+        //Desarrollado por
+
+        Row(
+          children: [
+            Expanded(
+              child: Center(
+                child: RichText(
+                    text: const TextSpan(
+                  text: "🖥️ Entorno de ejecución:",
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Text(ia!.entornoEjecucion.toString(),
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.normal)),
+              ),
+            ),
+          ],
+        ),
+        const Divider(
+          color: Colors.grey,
+        ),
       ],
     );
   }

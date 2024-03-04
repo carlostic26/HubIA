@@ -1,6 +1,6 @@
 export 'package:hubia/screens/home_screen.dart';
 export 'package:hubia/screens/detail_screen.dart';
-export 'package:hubia/screens/list_category_screen.dart';
+export 'package:hubia/screens/category_screen.dart';
 export 'package:hubia/screens/loading_screen.dart';
 export 'package:hubia/screens/widgets/carrusel_widget.dart';
 export 'package:hubia/screens/widgets/animated_background.dart';
@@ -8,7 +8,7 @@ export 'package:hubia/model/db/db_ia.dart';
 export 'package:hubia/model/db/ia_model.dart';
 export 'package:hubia/provider/riverpod.dart';
 export 'package:hubia/config/router.dart';
-export 'package:hubia/screens/search_ia.dart';
+export 'package:hubia/screens/search_screen.dart';
 
 export 'package:percent_indicator/linear_percent_indicator.dart';
 export 'package:shared_preferences/shared_preferences.dart';

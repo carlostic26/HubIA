@@ -3,6 +3,7 @@ class IA {
   final String? category;
   final String? imageUrl;
   final String? webUrl;
+  final String? entornoEjecucion;
   final String? description;
   final String? tutorialUrl;
 
@@ -11,6 +12,7 @@ class IA {
     this.category,
     this.imageUrl,
     this.webUrl,
+    this.entornoEjecucion,
     this.description,
     this.tutorialUrl,
   });
@@ -21,6 +23,7 @@ class IA {
       'category': category,
       'imageUrl': imageUrl,
       'webUrl': webUrl,
+      'entornoEjecucion': entornoEjecucion,
       'description': description,
       'tutorialUrl': tutorialUrl,
     };
@@ -31,11 +34,12 @@ class IA {
         category = map['category'],
         imageUrl = map['imageUrl'],
         webUrl = map['webUrl'],
+        entornoEjecucion = map['entornoEjecucion'],
         description = map['description'],
         tutorialUrl = map['tutorialUrl'];
 
   @override
   String toString() {
-    return 'IA{name: $name, category: $category, imageUrl: $imageUrl, webUrl: $webUrl, description: $description, tutorialUrl: $tutorialUrl}';
+    return 'IA{name: $name, category: $category, imageUrl: $imageUrl, webUrl: $webUrl, entornoEjecucion: $entornoEjecucion, description: $description, tutorialUrl: $tutorialUrl}';
   }
 }
