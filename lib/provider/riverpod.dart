@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../screens/screens_barril.dart';
 
 final maxIas_rp = StateProvider((ref) => 25); //numero de ias
@@ -47,6 +49,29 @@ final iasProvider = FutureProvider<List<IA>>((ref) async {
   final dbService = ref.watch(databaseServiceProvider);
   return dbService.getIAByPalabraClave(palabraClave);
 });
+
+//ads | Proveedor para cargar el banner
+/* final anchoredAdaptiveAdProvider = StateProvider<BannerAd?>((ref) => null);
+
+final adRequest = AdRequest(
+    // Configura tu solicitud de anuncios aquí
+    );
+
+void loadAdaptiveAd(WidgetRef ref) {
+  HubiaAdsIds ads = HubiaAdsIds();
+  final anchoredAdaptiveAd = BannerAd(
+    size: AdSize.banner,
+    adUnitId: ads.banner_adUnitId,
+    listener: BannerAdListener(),
+    request: adRequest,
+  );
+
+  anchoredAdaptiveAd.load().then((value) {
+    ref.read(anchoredAdaptiveAdProvider.notifier).state = anchoredAdaptiveAd;
+  });
+} */
+
+// Proveedor de imagenes de muestra category
 
 final imagesCategoryProvider = FutureProvider<List<IA>>((ref) async {
   return await dBhandler.getImgByCategory('image');

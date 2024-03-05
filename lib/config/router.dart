@@ -4,7 +4,7 @@ import 'package:hubia/screens/webview.dart';
 
 GoRouter appRoutes() {
   return GoRouter(
-    initialLocation: '/loading',
+    initialLocation: '/home',
     routes: [
       GoRoute(
         path: '/home',
