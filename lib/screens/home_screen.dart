@@ -203,16 +203,18 @@ class HomeScreen extends ConsumerWidget {
             _drawerListTileWidget('Buscar una IA', Icons.search, () {
               context.push('/search');
             }),
-            _newDrawerListTileWidget('Categorias', Icons.category, () {
-              //context.push('/categoryList');
+            _drawerListTileWidget('Categorias', Icons.category, () {
+              context.pop();
             }),
-            _newDrawerListTileWidget('IAS favoritos', Icons.favorite, () {
+            _drawerListTileWidget('IAS favoritos', Icons.favorite, () {
+              context.push('/favs');
+
               //Navigator.pushNamed(context, '/favs');
 
-              Navigator.push(
+/*               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => FavoriteScreen()),
-              );
+              ); */
             }),
             _drawerListTileWidget('¿Problemas para ingresar?',
                 Icons.sentiment_very_dissatisfied_sharp, () {

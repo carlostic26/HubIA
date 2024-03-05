@@ -19,8 +19,7 @@ final dBhandler = DatabaseHandlerIA();
 final getCategoryIaProvider = FutureProvider<List<IA>>((ref) async {
   await dBhandler.initializeDB();
 
-  final selectedCategory = ref.watch(
-      selecCatProvider); // Esto observa el Provider de categoría seleccionada
+  final selectedCategory = ref.watch(selecCatProvider);
 
   if (selectedCategory != null) {
     final List<IA> listIA = await dBhandler.getIAByCategory(selectedCategory);
@@ -30,7 +29,24 @@ final getCategoryIaProvider = FutureProvider<List<IA>>((ref) async {
   }
 });
 
-//aqui guardo un elemento o item de tipo ia
+//obtiene lista de ias guardadas
+final getFavsIaProvider = FutureProvider<List<IA>>((ref) async {
+  await dBhandler.initializeDB();
+
+  final List<IA> listIA = await dBhandler.getFavoriteIAs();
+  return listIA;
+});
+
+// Define un StreamProvider para obtener la lista de IA favoritos
+final favoriteIAsProvider = StreamProvider<List<IA>>((ref) async* {
+  final dbhandler = DatabaseHandlerIA();
+  await dbhandler.initializeDB(); // Inicializa la base de datos
+  while (true) {
+    yield await dbhandler.getFavoriteIAs();
+    await Future.delayed(
+        Duration(seconds: 1)); // Ajusta la frecuencia de actualización
+  }
+});
 
 final isIAFavoritedProvider =
     FutureProvider.autoDispose.family<bool, String>((ref, iaName) async {

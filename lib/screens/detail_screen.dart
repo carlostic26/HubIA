@@ -222,11 +222,11 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                 onPressed: () async {
                   final dbhandler = DatabaseHandlerIA();
                   if (isLiked.value ?? false) {
-                    await dbhandler.removeIAFromFavorites(ia!.name.toString());
+                    await dbhandler.removeIAFromFavorites(ia.name.toString());
                   } else {
                     await dbhandler.addIAtoFavorites(ia.name.toString());
                   }
-                  ref.refresh(isIAFavoritedProvider(ia
+                  ref.invalidate(isIAFavoritedProvider(ia
                       .name!)); // Actualizar el estado de favorito después de la acción
                 },
                 icon: Icon(
