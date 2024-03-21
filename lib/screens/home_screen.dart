@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hubia/screens/fav_screen.dart';
 import 'package:hubia/screens/screens_barril.dart';
-import 'package:hubia/provider/riverpod.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({Key? key});

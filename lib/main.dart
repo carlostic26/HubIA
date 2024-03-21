@@ -6,7 +6,7 @@ import 'package:hubia/screens/screens_barril.dart';
 AppOpenAd? openAd;
 bool isAdLoaded = false;
 
-Future<void> loadOpenAd() async {
+Future<void> loadOpenAd() async { 
   HubiaAdsIds ads = HubiaAdsIds();
   try {
     await AppOpenAd.load(
