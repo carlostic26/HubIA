@@ -153,19 +153,17 @@ class _SearchIAState extends State<SearchIA> {
                                         padding: const EdgeInsets.all(2.0),
                                         child: FloatingActionButton(
                                           mini: true,
-                                          backgroundColor: Colors
-                                              .grey, // Color de fondo gris
+                                          backgroundColor: Colors.grey,
                                           onPressed: () {
                                             ref
                                                 .read(
                                                     selectedIAProvider.notifier)
-                                                .state = ia;
+                                                .state = ias[index];
                                             context.go('/detailScreen');
                                           },
                                           child: const Icon(
                                             Icons.keyboard_arrow_right,
-                                            color: Colors
-                                                .white, // Color del icono blanco
+                                            color: Colors.white,
                                           ),
                                         ),
                                       ),

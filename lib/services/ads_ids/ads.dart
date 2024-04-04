@@ -16,7 +16,6 @@ class HubiaAdsIds {
 }
 
 /*
-
 //real
 
 class HubiaAdsIds {
@@ -25,5 +24,4 @@ class HubiaAdsIds {
   String interstitial_adUnitId = 'ca-app-pub-4336409771912215/6832361375';
   String reward_adUnitId = 'ca-app-pub-4336409771912215/4206198036';
 }
-
 */

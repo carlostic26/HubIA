@@ -10,14 +10,14 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  int maxCourses = 24;
+  int maxIas = 167;
   bool buttonEnabled = false;
 
   @override
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 8), () {
       setState(() {
         buttonEnabled = true;
       });
@@ -69,7 +69,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                       lineHeight: 8,
                       percent: 100 / 100,
                       animation: true,
-                      animationDuration: 2000, // 8.5 sec para cargar la barra
+                      animationDuration: 8000, // 8.5 sec para cargar la barra
                       progressColor: Colors.blueGrey,
                     ),
                   ],
@@ -85,7 +85,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                       color: Colors.white,
                     ),
                   ),
-                  CountingAnimation(endCount: maxCourses),
+                  CountingAnimation(endCount: maxIas),
                   const Text(
                     " IA's diferentes de acceso gratuito...",
                     style: TextStyle(

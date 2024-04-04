@@ -1,10 +1,11 @@
 import 'package:hubia/screens/fav_screen.dart';
 import 'package:hubia/screens/screens_barril.dart';
+import 'package:hubia/screens/tutorial_inside.dart';
 import 'package:hubia/screens/webview.dart';
 
 GoRouter appRoutes() {
   return GoRouter(
-    initialLocation: '/home',
+    initialLocation: '/loading',
     routes: [
       GoRoute(
         path: '/home',
@@ -16,7 +17,7 @@ GoRouter appRoutes() {
       ),
       GoRoute(
         path: '/loading',
-        builder: (context, state) => const FavoriteScreen(),
+        builder: (context, state) => const LoadingScreen(),
       ),
       GoRoute(
         path: '/detailScreen',
@@ -33,6 +34,10 @@ GoRouter appRoutes() {
       GoRoute(
         path: '/favs',
         builder: (context, state) => const FavoriteScreen(),
+      ),
+      GoRoute(
+        path: '/tutorialInside',
+        builder: (context, state) => TutorialInside(),
       ),
     ],
   );

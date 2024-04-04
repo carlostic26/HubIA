@@ -87,6 +87,10 @@ void loadAdaptiveAd(WidgetRef ref) {
   });
 } */
 
+final urlTutorialInside = StateProvider((ref) => 'empty');
+
+final nameTutorialInside = StateProvider((ref) => 'empty');
+
 // Proveedor de imagenes de muestra category
 
 final imagesCategoryProvider = FutureProvider<List<IA>>((ref) async {

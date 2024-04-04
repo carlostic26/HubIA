@@ -1,22 +1,27 @@
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdHelper {
-  static String get bannerAdUnitId1 {
-    if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/6300978111';
-    } else if (Platform.isIOS) {
-      return '<YOUR_IOS_BANNER_AD_UNIT_ID>';
-    } else {
-      throw UnsupportedError('Unsupported platform');
-    }
-  }
+  //real
+  static String banner_adUnitId = 'ca-app-pub-4336409771912215/3701982762';
+  static String openApp_adUnitId = 'ca-app-pub-4336409771912215/2396639958';
+  static String interstitial_adUnitId =
+      'ca-app-pub-4336409771912215/6832361375';
+  static String reward_adUnitId = 'ca-app-pub-4336409771912215/4206198036';
 
-  static String get bannerAdUnitId2 {
+/* 
+  //test
+  static String banner_adUnitId = 'ca-app-pub-3940256099942544/6300978111';
+  static String openApp_adUnitId = 'ca-app-pub-3940256099942544/3419835294';
+  static String interstitial_adUnitId =
+      'ca-app-pub-3940256099942544/1033173712';
+  static String reward_adUnitId = 'ca-app-pub-3940256099942544/5354046379';
+ */
+
+  static String get bannerAdUnitId {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/6300978112';
+      return banner_adUnitId;
     } else if (Platform.isIOS) {
       return '<YOUR_IOS_BANNER_AD_UNIT_ID>';
     } else {
@@ -26,7 +31,7 @@ class AdHelper {
 
   static String get interstitialAdUnitId {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/1033173712';
+      return interstitial_adUnitId;
     } else if (Platform.isIOS) {
       return '<YOUR_IOS_INTERSTITIAL_AD_UNIT_ID>';
     } else {
@@ -36,7 +41,7 @@ class AdHelper {
 
   static String get rewardedAdUnitId {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/5224354917';
+      return reward_adUnitId;
     } else if (Platform.isIOS) {
       return '<YOUR_IOS_REWARDED_AD_UNIT_ID>';
     } else {
@@ -77,7 +82,7 @@ class AdmobController extends StateNotifier<AdState> {
 
   Future<void> loadBannerAd() async {
     return BannerAd(
-      adUnitId: AdHelper.bannerAdUnitId1,
+      adUnitId: AdHelper.bannerAdUnitId,
       request: const AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(

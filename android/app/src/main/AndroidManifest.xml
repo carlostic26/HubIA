@@ -6,6 +6,14 @@
         android:label="Hubia"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
+
+        <!-- change ID app  to test ID in the next line. actually is the real id: 398...-->
+        <!-- Sample AdMob app ID, test: ca-app-pub-3940256099942544~3347511713 || new: ca-app-pub-4336409771912215~6119428398--> 
+        <meta-data 
+           android:name="com.google.android.gms.ads.APPLICATION_ID" 
+           android:value="ca-app-pub-4336409771912215~6119428398"/>
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -28,12 +36,6 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-
-        <!-- change ID app  to test ID in the next line. actually is the real id: 433...-->
-        <!-- Sample AdMob app ID, test: ca-app-pub-3940256099942544~3347511713 || new: ca-app-pub-4336409771912215~1614171285 || old: ca-app-pub-4336409771912215~5807859320--> 
-        <meta-data 
-           android:name="com.google.android.gms.ads.APPLICATION_ID" 
-           android:value="ca-app-pub-3940256099942544~3347511713"/>
 
     </application>
 

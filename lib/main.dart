@@ -6,7 +6,7 @@ import 'package:hubia/screens/screens_barril.dart';
 AppOpenAd? openAd;
 bool isAdLoaded = false;
 
-Future<void> loadOpenAd() async { 
+Future<void> loadOpenAd() async {
   HubiaAdsIds ads = HubiaAdsIds();
   try {
     await AppOpenAd.load(
@@ -36,7 +36,7 @@ void main() async {
 
   await loadOpenAd();
 
-  Timer(Duration(seconds: 10), () async {
+  Timer(const Duration(seconds: 10), () async {
     if (!isAdLoaded) {
       openAd?.dispose();
     }

@@ -29,6 +29,9 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
     // Aquí seguimos usando ref.watch para suscribirnos al estado y obtener la IA seleccionada
     final ia = ref.watch(selectedIAProvider);
 
+    //provider que lee en variable de videotutorial actual
+    final tutorialInside = ref.watch(urlTutorialInside);
+
     // Observar el estado de favorito para el IA actual
     final isLiked = ref.watch(isIAFavoritedProvider(ia!.name!));
 
@@ -139,15 +142,13 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                                   children: <Widget>[
                                     ElevatedButton(
                                       onPressed: () {
-                                        //abrirCursoCursin();
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                                'Espera un momento mientras se carga el sitio'),
-                                            duration: Duration(seconds: 7),
-                                          ),
-                                        );
+                                        ref
+                                            .read(nameTutorialInside.notifier)
+                                            .state = ia.name!;
+                                        ref
+                                            .read(urlTutorialInside.notifier)
+                                            .state = ia.tutorialUrl!;
+                                        context.go('/tutorialInside');
                                       },
                                       style: ElevatedButton.styleFrom(
                                         elevation: 0,
@@ -395,7 +396,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                     ),
                     onPressed: () async {
                       //interstitial
-                      ref.read(admobProvider).interstitialAd!.show();
+                      // ref.read(admobProvider).interstitialAd!.show();
 
                       //rewarded
 /*                       ref.watch(admobProvider).rewardedAd == null
@@ -415,15 +416,9 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                           }; */
 
                       //PARA PRUEBAS DE TICNOTICOS
-                      context.go('/webView');
+                      //context.go('/webView');
 
-                      final scaffoldMessenger = ScaffoldMessenger.of(context);
-                      scaffoldMessenger.showSnackBar(
-                        const SnackBar(
-                          content: Text('Cargando el sitio...'),
-                          duration: Duration(seconds: 5),
-                        ),
-                      );
+                      _mostrarDialogo(context);
                     },
                     icon: const Icon(
                       Icons.rocket_launch,
@@ -448,6 +443,63 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
     );
   }
 
+  void _mostrarDialogo(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Stack(
+          alignment: Alignment.topRight,
+          children: [
+            AlertDialog(
+              title: Text('¡Vamos a ello!'),
+              content:
+                  Text('Pero antes, mira un corto anuncio para apoyarnos.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancelar'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    ref.read(admobProvider).interstitialAd!.show();
+                    context.go('/webView');
+
+                    final scaffoldMessenger = ScaffoldMessenger.of(context);
+                    scaffoldMessenger.showSnackBar(
+                      const SnackBar(
+                        content: Text('Cargando el sitio...'),
+                        duration: Duration(seconds: 5),
+                      ),
+                    );
+                  },
+                  child: Text('Continuar'),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0, right: 10.0),
+              child: CircleAvatar(
+                radius: 15.0,
+                backgroundColor: Colors.red,
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  icon: Icon(Icons.close, size: 18.0),
+                  color: Colors.white,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   AppBar _appBar(String selectedIA, BuildContext context) {
     return AppBar(
       centerTitle: true,
@@ -466,7 +518,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
           try {
             context.pop();
           } catch (e) {
-            context.go('/categoryList');
+            context.go('/home');
           }
         },
       ),

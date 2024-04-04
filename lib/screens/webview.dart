@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_webview_pro/webview_flutter.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hubia/screens/screens_barril.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
 
 final loadingProvider = StateProvider<bool>((ref) => true);
 
@@ -14,9 +15,54 @@ class WebViewScreen extends ConsumerWidget {
     final ia = ref.watch(selectedIAProvider.notifier).state;
     final isLoading = ref.watch(loadingProvider);
 
+    //variable de ver tutorial
+    //provider que lee en variable de videotutorial actual
+    final tutorialInside = ref.watch(urlTutorialInside);
+
     Future.delayed(const Duration(seconds: 5), () {
       ref.read(loadingProvider.notifier).state = false;
     });
+
+    void _verTutorial(String urlTutorial) {
+      context.push('/tutorialInside');
+    }
+
+    void _compartirUrl(String nameIA) {
+      Share.share("Esta IA es impresionante, se llama " +
+          nameIA +
+          " úsala con Hubia, enlace a Play Store 🥳👇🏼" +
+          "\n\nhttps://play.google.com/store/apps/details?id=com.blogspot.apphubia");
+    }
+
+    void _openUrl(String url) async {
+      if (await canLaunch(url)) launch(url);
+    }
+
+    void _copiarEnlace(String url) {
+      Clipboard.setData(ClipboardData(text: url));
+      Fluttertoast.showToast(
+        msg: "Enlace copiado",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+    }
+
+    void handleClick(String value) {
+      switch (value) {
+        case 'Ver tutorial':
+          _verTutorial(tutorialInside.toString());
+          break;
+        case 'Compartir mediante...':
+          _compartirUrl(ia!.name.toString());
+          break;
+        case 'Abrir con el navegador':
+          _openUrl(ia!.webUrl.toString());
+          break;
+        case 'Copiar Enlace':
+          _copiarEnlace(ia!.webUrl.toString());
+          break;
+      }
+    }
 
     return Scaffold(
       body: Stack(
@@ -24,47 +70,60 @@ class WebViewScreen extends ConsumerWidget {
           Column(
             children: [
               AppBar(
-                backgroundColor: Colors.black,
-                title: Text(
-                  ia!.name.toString(),
-                  style: const TextStyle(color: Colors.white),
-                ),
-                leading: Builder(
-                  builder: (BuildContext context) {
-                    return IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        context.go('/detailScreen');
-                      },
-                    );
-                  },
-                ),
-                actions: [
-                  Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          //openUrl();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          backgroundColor: Colors.transparent,
-                          disabledForegroundColor: Colors.transparent,
-                          disabledBackgroundColor: Colors.transparent,
-                        ),
-                        child: const FaIcon(
-                          FontAwesomeIcons.youtube,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
-                    ],
+                  backgroundColor: Colors.black,
+                  title: Text(
+                    ia!.name.toString(),
+                    style: const TextStyle(color: Colors.white, fontSize: 10),
                   ),
-                ],
-              ),
+                  leading: Builder(
+                    builder: (BuildContext context) {
+                      return IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          context.go('/detailScreen');
+                        },
+                      );
+                    },
+                  ),
+                  actions: <Widget>[
+                    Row(
+                      children: [
+                        PopupMenuButton<String>(
+                          color: Colors.white,
+                          iconSize: 20,
+                          onSelected: handleClick,
+                          itemBuilder: (BuildContext context) {
+                            return {
+                              'Ver tutorial',
+                              'Compartir mediante...',
+                              'Abrir con el navegador',
+                              'Copiar Enlace'
+                            }.map((String choice) {
+                              return PopupMenuItem<String>(
+                                textStyle: TextStyle(
+                                  color: Colors.white,
+                                ),
+                                value: choice,
+                                child: Text(choice),
+                              );
+                            }).toList();
+                          },
+                        ),
+                        IconButton(
+                            icon: Icon(
+                              color: Colors.white,
+                              Icons.logout,
+                              size: 20,
+                            ),
+                            onPressed: () {
+                              context.go('/detailScreen');
+                            }),
+                      ],
+                    ),
+                  ]),
               Expanded(
                 child: WebView(
                   initialUrl: ia.webUrl.toString(),
