@@ -47,26 +47,25 @@ class _LoadingScreenState extends State<LoadingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 100,
+                height: 70,
               ),
               Container(
                 height: 200,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 5,
                 ),
-                child: Image.asset("assets/logo.png"),
+                child: Image.asset("assets/logo_mixto.png"),
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: 20,
               ),
               Container(
-                padding: const EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     LinearPercentIndicator(
-                      width: 270.0,
-                      lineHeight: 8,
+                      width: 280,
+                      lineHeight: 5,
                       percent: 100 / 100,
                       animation: true,
                       animationDuration: 8000, // 8.5 sec para cargar la barra
@@ -74,6 +73,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
                     ),
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 2,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

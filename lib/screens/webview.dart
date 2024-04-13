@@ -98,9 +98,9 @@ class WebViewScreen extends ConsumerWidget {
                           itemBuilder: (BuildContext context) {
                             return {
                               'Ver tutorial',
-                              'Compartir mediante...',
+                              'Copiar Enlace',
                               'Abrir con el navegador',
-                              'Copiar Enlace'
+                              'Compartir mediante...'
                             }.map((String choice) {
                               return PopupMenuItem<String>(
                                 textStyle: TextStyle(

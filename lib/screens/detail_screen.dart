@@ -602,6 +602,35 @@ class WidgetTablaInfo extends StatelessWidget {
               child: Center(
                 child: RichText(
                     text: const TextSpan(
+                  text: "📌 Nombre:",
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Text(
+                    ia != null ? ia!.name.toString() : 'Nombre no disponible',
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.normal)),
+              ),
+            ),
+          ],
+        ),
+        const Divider(
+          color: Colors.grey,
+        ),
+
+        Row(
+          children: [
+            Expanded(
+              child: Center(
+                child: RichText(
+                    text: const TextSpan(
                   text: "🗂️ Categoría:",
                   style: TextStyle(
                     fontSize: 15.0,
@@ -627,7 +656,6 @@ class WidgetTablaInfo extends StatelessWidget {
         const Divider(
           color: Colors.grey,
         ),
-        //Desarrollado por
 
         Row(
           children: [

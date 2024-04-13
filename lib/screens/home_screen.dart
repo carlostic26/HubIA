@@ -49,7 +49,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
                 SizedBox(height: height * 0.02),
-                saludoWidget(context),
+                saludoWidget(context, ref),
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
@@ -196,10 +196,10 @@ class HomeScreen extends ConsumerWidget {
             ),
           ],
         ),
-        drawer: _getDrawer(context));
+        drawer: _getDrawer(context, ref));
   }
 
-  Widget saludoWidget(BuildContext context) {
+  Widget saludoWidget(BuildContext context, ref) {
     double sizeWidth = MediaQuery.of(context).size.width;
     double sizeHeight = MediaQuery.of(context).size.height;
     String palabraBusqueda = '';
@@ -240,10 +240,10 @@ class HomeScreen extends ConsumerWidget {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      /*   Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => (TutorialesScreen()))); */
+                      ref.read(nameTutorialInside.notifier).state = 'HubIA';
+                      ref.read(urlTutorialInside.notifier).state =
+                          'https://youtu.be/PLo_1FW86bg';
+                      context.go('/tutorialInside');
                     },
                     icon: Icon(
                       Icons.ondemand_video,
@@ -288,9 +288,8 @@ class HomeScreen extends ConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                     child: TextField(
-                      onSubmitted: (value) {
+                      onTap: () {
                         context.push('/search');
-                        // searchCourse(value);
                       },
                       onChanged: (text) {
                         palabraBusqueda = text;
@@ -343,7 +342,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _getDrawer(BuildContext context) {
+  Widget _getDrawer(BuildContext context, ref) {
     return Drawer(
       elevation: 1,
       backgroundColor: const Color.fromARGB(186, 22, 21, 21),
@@ -384,26 +383,37 @@ class HomeScreen extends ConsumerWidget {
                 MaterialPageRoute(builder: (_) => FavoriteScreen()),
               ); */
             }),
+            _drawerListTileWidget('Tutorial', Icons.ondemand_video, () {
+              ref.read(nameTutorialInside.notifier).state = 'HubIA';
+              ref.read(urlTutorialInside.notifier).state =
+                  'https://youtu.be/PLo_1FW86bg';
+              context.go('/tutorialInside');
+
+              //Navigator.pushNamed(context, '/favs');
+
+/*               Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => FavoriteScreen()),
+              ); */
+            }),
             _drawerListTileWidget(
                 '¿Problemas?', Icons.sentiment_very_dissatisfied_sharp, () {
-              context.push('/problemasIngreso');
+              _showDialogProblemasAcceso(context);
             }),
-            _drawerListTileWidget('Ayúdanos a mejorar', Icons.feedback, () {
+/*             _drawerListTileWidget('Ayúdanos a mejorar', Icons.feedback, () {
               context.push('/feedback');
             }),
             _drawerListTileWidget('Eliminar anuncios', Icons.auto_delete, () {
               context.push('/eliminarAnuncios');
-            }),
+            }), */
             const SizedBox(height: 20),
             const Divider(
               color: Colors.grey,
             ),
             const Text("  Información", style: TextStyle(color: Colors.white)),
             _drawerListTileWidget('Info de la app', Icons.info, () {}),
-            _drawerListTileWidget(
-                'Nuestras redes', Icons.supervised_user_circle, () {}),
             _drawerListTileWidget('Politica de privacidad', Icons.policy, () {
-              context.push('/politica');
+              //context.push('/politica');
             }),
           ],
         ),
@@ -470,6 +480,57 @@ class HomeScreen extends ConsumerWidget {
         ),
         onTap: () {
           go;
+        });
+  }
+
+  void _showDialogProblemasAcceso(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+              title: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "¿Problemas para ingresar?",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 20.0),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      '\nTe recomendamos 4 posibles soluciones: \n\n' +
+                          '1. No uses bloqueadores de anuncios DNS. Necesitamos de los anuncios para poder mantener la app.' +
+                          ' \n\n2. Verifica tu conexión a internet. Los accesos funcionan solo si tienes conexión a internet, cambiate a WiFi si no puedes entrar con datos móviles.' +
+                          ' \n\n3. Abre el acceso de la IA con la opcion de "Abrir con el navegador"' +
+                          '\n\n4. En algunos teléfonos la carga de anuncios suele tardarse más que en otros, dependiendo del tipo de smartphone que tengas. Si no te cargan, entra de nuevo.',
+                      style: TextStyle(
+                          color: const Color.fromARGB(255, 50, 50, 50),
+                          fontSize: 13.0),
+                    ),
+                  ]),
+              children: <Widget>[
+                Container(
+                    alignment: Alignment.topCenter,
+                    padding: EdgeInsets.symmetric(horizontal: 5.0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.grey), // Cambia el color del botón a verde
+                      ),
+                      child: Text(
+                        'Entiendo',
+                        style: TextStyle(fontSize: 15, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    )),
+              ]);
         });
   }
 }
