@@ -12,6 +12,7 @@ class HomeScreen extends ConsumerWidget {
     final imgUrlvideo = ref.watch(videoCategoryProvider);
     final imgUrlaudio = ref.watch(audioCategoryProvider);
     final imgUrltext = ref.watch(textCategoryProvider);
+    final imgUrlnumber = ref.watch(numberCategoryProvider);
     final imgUrlothers = ref.watch(othersCategoryProvider);
 
     final selectedCategory = ref.watch(selecCatProvider);
@@ -143,26 +144,50 @@ class HomeScreen extends ConsumerWidget {
                           ),
                         ),
                         SizedBox(height: height * 0.02),
-                        /*  GestureDetector(
-                      onTap: () {
-                        ref.read(selecCatProvider.notifier).state = 'other';
-                        context.push('/categoryList');
-                      },
-                      child: Column(
-                        children: [
-                          WidgetCategoryLine('📌 Otros'),
-                          SizedBox(height: height * 0.02),
-                          imgUrlothers.when(
-                            data: (other) {
-                              return MyCarousel(categoryList: other);
-                            },
-                            loading: () => const CircularProgressIndicator(),
-                            error: (err, stack) =>
-                                Text('Ha ocurrido un error: $err'),
+                        GestureDetector(
+                          onTap: () {
+                            ref.read(selecCatProvider.notifier).state =
+                                'number';
+                            context.push('/categoryList');
+                          },
+                          child: Column(
+                            children: [
+                              WidgetCategoryLine('🔢 Números'),
+                              SizedBox(height: height * 0.02),
+                              imgUrlnumber.when(
+                                data: (numero) {
+                                  return MyCarousel(categoryList: numero);
+                                },
+                                loading: () =>
+                                    const CircularProgressIndicator(),
+                                error: (err, stack) =>
+                                    Text('Ha ocurrido un error: $err'),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ), */
+                        ),
+                        SizedBox(height: height * 0.02),
+                        GestureDetector(
+                          onTap: () {
+                            ref.read(selecCatProvider.notifier).state = 'other';
+                            context.push('/categoryList');
+                          },
+                          child: Column(
+                            children: [
+                              WidgetCategoryLine('📌 Otros'),
+                              SizedBox(height: height * 0.02),
+                              imgUrlothers.when(
+                                data: (numero) {
+                                  return MyCarousel(categoryList: numero);
+                                },
+                                loading: () =>
+                                    const CircularProgressIndicator(),
+                                error: (err, stack) =>
+                                    Text('Ha ocurrido un error: $err'),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),

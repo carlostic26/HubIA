@@ -13,6 +13,11 @@ class DetailScreen extends ConsumerStatefulWidget {
 }
 
 class _DetailScreenState extends ConsumerState<DetailScreen> {
+  //initializing banner ad
+  BannerAd? _anchoredAdaptiveAd;
+  bool _isLoaded = false;
+  bool _isAdLoaded = false;
+
   @override
   void initState() {
     ref.read(admobProvider.notifier).loadBannerAd();
@@ -25,6 +30,11 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
+    if (!_isAdLoaded) {
+      _loadAdaptativeAd();
+      _isAdLoaded = true;
+    }
 
     // Aquí seguimos usando ref.watch para suscribirnos al estado y obtener la IA seleccionada
     final ia = ref.watch(selectedIAProvider);
@@ -45,14 +55,63 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
           ],
         ),
       ]),
-/*       bottomNavigationBar: ref.watch(admobProvider).bannerAd == null
-          ? const SizedBox()
-          : SizedBox(
-              height: ref.watch(admobProvider).bannerAd!.size.height.toDouble(),
-              width: ref.watch(admobProvider).bannerAd!.size.width.toDouble(),
-              child: AdWidget(ad: ref.watch(admobProvider).bannerAd!),
-            ), */
+      bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
+          ? Container(
+              color: Color.fromARGB(0, 33, 149, 243),
+              width: _anchoredAdaptiveAd?.size.width.toDouble(),
+              height: _anchoredAdaptiveAd?.size.height.toDouble(),
+              child: AdWidget(ad: _anchoredAdaptiveAd!),
+            )
+          : Container(
+              color: Color.fromARGB(0, 33, 149, 243),
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height *
+                  0.1, // 10% de la altura de la pantalla
+            ),
     );
+  }
+
+  Future<void> _loadAdaptativeAd() async {
+    if (_isAdLoaded) {
+      return;
+    }
+
+    final AnchoredAdaptiveBannerAdSize? size =
+        await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+            MediaQuery.of(context).size.width.truncate());
+
+    if (size == null) {
+      //print('Unable to get height of anchored banner.');
+      return;
+    }
+
+    HubiaAdsIds ads = HubiaAdsIds();
+
+    BannerAd loadedAd = BannerAd(
+      adUnitId: ads.banner_adUnitId,
+      size: size,
+      request: AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          // print('$ad loaded: ${ad.responseInfo}');
+          setState(() {
+            _anchoredAdaptiveAd = ad as BannerAd;
+            _isLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          // print('Anchored adaptive banner failedToLoad: $error');
+          ad.dispose();
+        },
+      ),
+    );
+
+    try {
+      await loadedAd.load();
+    } catch (e) {
+      //print('Error loading anchored adaptive banner: $e');
+      loadedAd.dispose();
+    }
   }
 
   SingleChildScrollView itemList(

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../screens/screens_barril.dart';
 
 final maxIas_rp = StateProvider((ref) => 25); //numero de ias
@@ -107,6 +105,10 @@ final audioCategoryProvider = FutureProvider<List<IA>>((ref) async {
 
 final textCategoryProvider = FutureProvider<List<IA>>((ref) async {
   return await dBhandler.getImgByCategory('text');
+});
+
+final numberCategoryProvider = FutureProvider<List<IA>>((ref) async {
+  return await dBhandler.getImgByCategory('number');
 });
 
 final othersCategoryProvider = FutureProvider<List<IA>>((ref) async {
