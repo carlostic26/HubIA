@@ -210,19 +210,14 @@ class _SearchIAState extends State<SearchIA> {
             ),
           ],
         ),
-        bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
+        bottomNavigationBar: _anchoredAdaptiveAd != null
             ? Container(
-                color: Color.fromARGB(0, 33, 149, 243),
+                color: Colors.transparent,
                 width: _anchoredAdaptiveAd?.size.width.toDouble(),
                 height: _anchoredAdaptiveAd?.size.height.toDouble(),
                 child: AdWidget(ad: _anchoredAdaptiveAd!),
               )
-            : Container(
-                color: Color.fromARGB(0, 33, 149, 243),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height *
-                    0.1, // 10% de la altura de la pantalla
-              ),
+            : SizedBox(), // Si no hay anuncio cargado, no muestra nada
       );
     });
   }

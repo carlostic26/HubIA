@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hubia/controller/admob_controller.dart';
@@ -23,7 +24,17 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
     ref.read(admobProvider.notifier).loadBannerAd();
     ref.read(admobProvider.notifier).loadInterstitialAd();
     ref.read(admobProvider.notifier).loadRewardedAd();
+
+    _loadAdaptativeAd();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isLoaded) {
+      _loadAdaptativeAd();
+    }
   }
 
   @override
@@ -55,19 +66,14 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
           ],
         ),
       ]),
-      bottomNavigationBar: _anchoredAdaptiveAd != null && _isLoaded
+      bottomNavigationBar: _anchoredAdaptiveAd != null
           ? Container(
-              color: Color.fromARGB(0, 33, 149, 243),
+              color: Colors.transparent,
               width: _anchoredAdaptiveAd?.size.width.toDouble(),
               height: _anchoredAdaptiveAd?.size.height.toDouble(),
               child: AdWidget(ad: _anchoredAdaptiveAd!),
             )
-          : Container(
-              color: Color.fromARGB(0, 33, 149, 243),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height *
-                  0.1, // 10% de la altura de la pantalla
-            ),
+          : SizedBox(), // Si no hay anuncio cargado, no muestra nada
     );
   }
 
@@ -101,6 +107,12 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           // print('Anchored adaptive banner failedToLoad: $error');
+
+          Fluttertoast.showToast(
+            msg: "Fallo: $error",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+          );
           ad.dispose();
         },
       ),
@@ -110,6 +122,13 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
       await loadedAd.load();
     } catch (e) {
       //print('Error loading anchored adaptive banner: $e');
+
+      Fluttertoast.showToast(
+        msg: "Error:$e",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+      );
+
       loadedAd.dispose();
     }
   }
@@ -565,8 +584,9 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
       elevation: 0,
       backgroundColor: Colors.transparent,
       title: Text(
-        selectedIA,
-        style: const TextStyle(color: Colors.white),
+        '$selectedIA',
+        style: TextStyle(
+            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
       ),
       leading: IconButton(
         icon: const Icon(

@@ -59,7 +59,8 @@ class _ListCategoryScreenState extends ConsumerState<ListCategoryScreen> {
       backgroundColor: Colors.transparent,
       title: Text(
         '$selectedCategory',
-        style: const TextStyle(color: Colors.white),
+        style: TextStyle(
+            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
       ),
       leading: IconButton(
         icon: const Icon(
