@@ -1,9 +1,12 @@
+import 'dart:io';
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hubia/controller/admob_controller.dart';
+import 'package:flutter_dialogs/flutter_dialogs.dart';
 import 'package:hubia/screens/screens_barril.dart';
 
 class DetailScreen extends ConsumerStatefulWidget {
@@ -108,11 +111,11 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           // print('Anchored adaptive banner failedToLoad: $error');
 
-          Fluttertoast.showToast(
+/*           Fluttertoast.showToast(
             msg: "Fallo: $error",
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
-          );
+          ); */
           ad.dispose();
         },
       ),
@@ -318,18 +321,20 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
               ),
 
               //tutorial button
-              Container(
-                  alignment: Alignment.topCenter,
-                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.ondemand_video,
-                      size: 30,
-                    ),
-                    color: Colors.grey,
-                  )),
-
+              ia.tutorialUrl == 'url_tutorial' || ia.tutorialUrl!.isEmpty
+                  ? Container()
+                  : Container(
+                      alignment: Alignment.topCenter,
+                      padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.ondemand_video,
+                          size: 30,
+                        ),
+                        color: Colors.grey,
+                      )),
+/* 
               //report button
               Container(
                   alignment: Alignment.topCenter,
@@ -342,7 +347,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                     ),
                     color: Colors.grey,
                   )),
-
+ */
               //share button
               Container(
                   alignment: Alignment.topCenter,
@@ -400,54 +405,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 Colors.blueGrey),
                           ),
-                          onPressed: () async {
-                            //Read all coins saved
-                            SharedPreferences coinsPrefs =
-                                await SharedPreferences.getInstance();
-
-                            int actualCoins =
-                                coinsPrefs.getInt('cursinCoinsSHP') ?? 2;
-
-                            //data that ask if the last acces to course is the same course in the moment:
-                            SharedPreferences lastCourse =
-                                await SharedPreferences.getInstance();
-                            lastCourse.getString('lastCourse');
-
-                            if (actualCoins >= 12 ||
-                                ia.name == lastCourse.getString('lastCourse')) {
-                              //Navigator.pop(context); //close dialog
-                              /*                           Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => courseOption(
-                                      nameCourse: widget.td.title,
-                                      urlCourse: widget.td.urlcourse,
-                                      imgCourse: widget.td.imgcourse,
-                                      nombreEntidad: widget.td.entidad,
-                                    )),
-                          ); */
-                            } else {
-                              //show dialog saying that ads keep service of the app
-                              /*                           showDialogCourse(
-                              context,
-                              widget.td.imgcourse,
-                              widget.td.title,
-                              widget.td.entidad,
-                              widget.td.urlcourse); */
-
-                              //PARA PRUEBAS DE TICNOTICOS
-                              /*Navigator.pop(context); //close dialog
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => courseOption(
-                                    nameCourse: widget.td.title,
-                                    urlCourse: widget.td.urlcourse,
-                                    imgCourse: widget.td.imgcourse,
-                                    nombreEntidad: widget.td.entidad,
-                                  )),
-                        );
-                        */
-                            }
-                          },
+                          onPressed: () async {},
                           icon: const FaIcon(
                             FontAwesomeIcons.youtube,
                             color: Colors.white,
@@ -496,7 +454,9 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                       //PARA PRUEBAS DE TICNOTICOS
                       //context.go('/webView');
 
-                      _mostrarDialogo(context);
+                      //_mostrarDialogo(context);
+
+                      showDialogIA(context, ia.imageUrl!, ia.name, ia.webUrl);
                     },
                     icon: const Icon(
                       Icons.rocket_launch,
@@ -516,6 +476,133 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
           const SizedBox(
             height: 40,
           ),
+        ],
+      ),
+    );
+  }
+
+  void showDialogIA(BuildContext context, String img, title, urlcourse) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
+    // Calcula la diagonal de la pantalla
+    double screenDiagonal = sqrt(height * height + width * width);
+
+    // Determina si el dispositivo es probablemente una tablet
+    bool isTablet = screenDiagonal >
+        900.0; // Este valor en puntos puede ajustarse según tus necesidades
+
+    // Determina la orientación de la pantalla
+    bool isLandscape = width > height;
+
+    double dialogHeight;
+    double dialogWidth;
+    double imageHeight;
+    double textSize;
+
+    if (isLandscape) {
+      //horizontal responsive
+      dialogHeight = height * 0.85;
+      dialogWidth = width * 0.30;
+      imageHeight = height * 0.25;
+      textSize = 10;
+    } else {
+      //vertical responsive
+      dialogHeight = height * 0.33;
+      dialogWidth = width * 0.8;
+      imageHeight = height * 0.17;
+      textSize = 12;
+    }
+
+    showPlatformDialog(
+      context: context,
+      androidBarrierDismissible: true,
+      builder: (_) => BasicDialogAlert(
+        content: SizedBox(
+          height: dialogHeight,
+          width: dialogWidth,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                '👀 Antes de ir...',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: height * 0.01),
+              CachedNetworkImage(
+                imageUrl: img,
+                fit: BoxFit.cover,
+                height: imageHeight,
+                width: width,
+              ),
+              SizedBox(height: height * 0.01),
+              SizedBox(
+                height: height * 0.10,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Text(
+                    'Puedes acceder a esta IA dentro o fuera de la app. Aprovéchala y disfrútala. ' +
+                        '\nVerás un pequeño anuncio para seguir mejorando la app HubIA 🕓',
+                    style: TextStyle(color: Colors.black, fontSize: textSize),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextButton(
+                child: const Text('Cancelar',
+                    style: TextStyle(color: Colors.white, fontSize: 10)),
+                style: TextButton.styleFrom(backgroundColor: Colors.grey),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              TextButton(
+                child: const Text('Continuar',
+                    style: TextStyle(color: Colors.white, fontSize: 10)),
+                style: TextButton.styleFrom(backgroundColor: Colors.blueAccent),
+                onPressed: () async {
+                  try {
+                    final result = await InternetAddress.lookup('google.com');
+                    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                      int randomNumber = Random().nextInt(10) +
+                          1; // Genera un número entre 1 y 10
+                      /*  if (randomNumber <= 6) {
+                        showInterstitialAd();
+                      } else {
+                        showRewardedAd();
+                      } */
+
+                      ref.read(admobProvider).interstitialAd!.show();
+                      context.go('/webView');
+
+                      final scaffoldMessenger = ScaffoldMessenger.of(context);
+                      scaffoldMessenger.showSnackBar(
+                        const SnackBar(
+                          content: Text('Cargando el sitio...'),
+                          duration: Duration(seconds: 5),
+                        ),
+                      );
+                    }
+                  } on SocketException catch (_) {
+                    Fluttertoast.showToast(
+                      msg:
+                          "No estás conectado a internet.\nUsa Wi-Fi o datos móviles.",
+                      toastLength: Toast.LENGTH_LONG,
+                      gravity: ToastGravity.CENTER,
+                    );
+                  }
+                },
+              ),
+            ],
+          )
         ],
       ),
     );

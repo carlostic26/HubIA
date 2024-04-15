@@ -412,9 +412,11 @@ class HomeScreen extends ConsumerWidget {
               color: Colors.grey,
             ),
             const Text("  Información", style: TextStyle(color: Colors.white)),
-            _drawerListTileWidget('Info de la app', Icons.info, () {}),
+            _drawerListTileWidget('Info de la app', Icons.info, () {
+              context.go('/infoApp');
+            }),
             _drawerListTileWidget('Politica de privacidad', Icons.policy, () {
-              //context.push('/politica');
+              context.go('/politica');
             }),
           ],
         ),
