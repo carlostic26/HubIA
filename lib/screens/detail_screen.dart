@@ -247,7 +247,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                                     ),
                                     ElevatedButton(
                                       onPressed: () {
-                                        //openUrl();
+                                        launch(ia.tutorialUrl.toString());
                                       },
                                       style: ElevatedButton.styleFrom(
                                         elevation: 0,
@@ -405,7 +405,9 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 Colors.blueGrey),
                           ),
-                          onPressed: () async {},
+                          onPressed: () async {
+                            launch(ia.tutorialUrl.toString());
+                          },
                           icon: const FaIcon(
                             FontAwesomeIcons.youtube,
                             color: Colors.white,
