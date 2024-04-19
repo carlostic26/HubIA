@@ -9,8 +9,7 @@ class AdHelper {
   static String openApp_adUnitId = 'ca-app-pub-4336409771912215/2396639958';
   static String interstitial_adUnitId =
       'ca-app-pub-4336409771912215/6832361375';
-  static String reward_adUnitId = 'ca-app-pub-4336409771912215/4206198036';
- */
+  static String reward_adUnitId = 'ca-app-pub-4336409771912215/4206198036'; */
 
   //test
   static String banner_adUnitId = 'ca-app-pub-3940256099942544/6300978111';

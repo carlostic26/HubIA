@@ -28,7 +28,10 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
     ref.read(admobProvider.notifier).loadInterstitialAd();
     ref.read(admobProvider.notifier).loadRewardedAd();
 
-    _loadAdaptativeAd();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadAdaptativeAd();
+    });
+
     super.initState();
   }
 
@@ -327,7 +330,9 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                       alignment: Alignment.topCenter,
                       padding: const EdgeInsets.symmetric(horizontal: 2.0),
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          launch(ia.tutorialUrl.toString());
+                        },
                         icon: const Icon(
                           Icons.ondemand_video,
                           size: 30,

@@ -2,7 +2,7 @@ name: hubia
 description: "A new Flutter project."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.8+8
+version: 1.0.9+9
 
 environment:
   sdk: '>=3.4.0-99.0.dev <4.0.0'
@@ -33,6 +33,9 @@ dependencies:
   hooks_riverpod: ^2.4.10
   google_mobile_ads: ^1.2.0
   flutter_dialogs: ^3.0.0
+  flutter_inappwebview: ^5.8.0
+  permission_handler: ^11.3.1
+  flutter_downloader: ^1.11.7
 
 dev_dependencies:
   flutter_test:
