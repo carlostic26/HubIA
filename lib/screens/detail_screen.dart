@@ -579,9 +579,9 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                   try {
                     final result = await InternetAddress.lookup('google.com');
                     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-                      int randomNumber = Random().nextInt(10) +
+                      /* int randomNumber = Random().nextInt(10) +
                           1; // Genera un número entre 1 y 10
-                      /*  if (randomNumber <= 6) {
+                     if (randomNumber <= 6) {
                         showInterstitialAd();
                       } else {
                         showRewardedAd();

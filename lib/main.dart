@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hubia/screens/screens_barril.dart';
 
@@ -41,6 +42,13 @@ void main() async {
       openAd?.dispose();
     }
   });
+
+  await FlutterDownloader.initialize(
+      debug:
+          false, // optional: set to false to disable printing logs to console (default: true)
+      ignoreSsl:
+          true // option: set to false to disable working with http links (default: false)
+      );
 
   runApp(const MyApp());
 }
