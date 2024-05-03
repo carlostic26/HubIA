@@ -43,12 +43,7 @@ void main() async {
     }
   });
 
-  await FlutterDownloader.initialize(
-      debug:
-          false, // optional: set to false to disable printing logs to console (default: true)
-      ignoreSsl:
-          true // option: set to false to disable working with http links (default: false)
-      );
+  await FlutterDownloader.initialize(debug: false, ignoreSsl: true);
 
   runApp(const MyApp());
 }

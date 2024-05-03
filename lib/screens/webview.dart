@@ -1,21 +1,18 @@
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart' as inappwebview;
-import 'package:flutter_webview_pro/webview_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hubia/screens/screens_barril.dart';
 import 'package:hubia/services/download_helper_functions.dart';
 import 'package:hubia/services/permission.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -30,14 +27,14 @@ class WebViewScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ia = ref.watch(selectedIAProvider.notifier).state;
 
-    final tutorialInside = ref.watch(urlTutorialInside);
+    final TutorialScreen = ref.watch(urlTutorialScreen);
 
     Future.delayed(const Duration(seconds: 5), () {
       ref.read(loadingProvider.notifier).state = false;
     });
 
     void _verTutorial(String urlTutorial) {
-      context.push('/tutorialInside');
+      context.push('/TutorialScreen');
     }
 
     void _compartirUrl(String nameIA) {
@@ -63,7 +60,7 @@ class WebViewScreen extends ConsumerWidget {
     void handleClick(String value) {
       switch (value) {
         case 'Ver tutorial':
-          _verTutorial(tutorialInside.toString());
+          _verTutorial(TutorialScreen.toString());
           break;
         case 'Compartir mediante...':
           _compartirUrl(ia!.name.toString());
@@ -79,9 +76,10 @@ class WebViewScreen extends ConsumerWidget {
 
     solicitarPermisos();
 
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        context.go('/detailScreen');
       },
       child: Scaffold(
         body: Stack(
@@ -443,14 +441,14 @@ class WebViewScreen extends ConsumerWidget {
 
     //variable de ver tutorial
     //provider que lee en variable de videotutorial actual
-    final tutorialInside = ref.watch(urlTutorialInside);
+    final TutorialScreen = ref.watch(urlTutorialScreen);
 
     Future.delayed(const Duration(seconds: 5), () {
       ref.read(loadingProvider.notifier).state = false;
     });
 
     void _verTutorial(String urlTutorial) {
-      context.push('/tutorialInside');
+      context.push('/TutorialScreen');
     }
 
     void _compartirUrl(String nameIA) {
@@ -476,7 +474,7 @@ class WebViewScreen extends ConsumerWidget {
     void handleClick(String value) {
       switch (value) {
         case 'Ver tutorial':
-          _verTutorial(tutorialInside.toString());
+          _verTutorial(TutorialScreen.toString());
           break;
         case 'Compartir mediante...':
           _compartirUrl(ia!.name.toString());

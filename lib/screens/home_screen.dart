@@ -13,6 +13,7 @@ class HomeScreen extends ConsumerWidget {
     final imgUrlaudio = ref.watch(audioCategoryProvider);
     final imgUrltext = ref.watch(textCategoryProvider);
     final imgUrlnumber = ref.watch(numberCategoryProvider);
+    final imgUrlcode = ref.watch(codeCategoryProvider);
     final imgUrlothers = ref.watch(othersCategoryProvider);
 
     final selectedCategory = ref.watch(selecCatProvider);
@@ -146,6 +147,28 @@ class HomeScreen extends ConsumerWidget {
                         SizedBox(height: height * 0.02),
                         GestureDetector(
                           onTap: () {
+                            ref.read(selecCatProvider.notifier).state = 'code';
+                            context.push('/categoryList');
+                          },
+                          child: Column(
+                            children: [
+                              WidgetCategoryLine('🖥️ Código y Programación'),
+                              SizedBox(height: height * 0.02),
+                              imgUrlcode.when(
+                                data: (code) {
+                                  return MyCarousel(categoryList: code);
+                                },
+                                loading: () =>
+                                    const CircularProgressIndicator(),
+                                error: (err, stack) =>
+                                    Text('Ha ocurrido un error: $err'),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: height * 0.02),
+                        GestureDetector(
+                          onTap: () {
                             ref.read(selecCatProvider.notifier).state =
                                 'number';
                             context.push('/categoryList');
@@ -241,10 +264,10 @@ class HomeScreen extends ConsumerWidget {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      ref.read(nameTutorialInside.notifier).state = 'HubIA';
-                      ref.read(urlTutorialInside.notifier).state =
+                      ref.read(nameTutorialScreen.notifier).state = 'HubIA';
+                      ref.read(urlTutorialScreen.notifier).state =
                           'https://youtu.be/PLo_1FW86bg';
-                      context.go('/tutorialInside');
+                      context.go('/TutorialScreen');
                     },
                     icon: Icon(
                       Icons.ondemand_video,
@@ -384,11 +407,14 @@ class HomeScreen extends ConsumerWidget {
                 MaterialPageRoute(builder: (_) => FavoriteScreen()),
               ); */
             }),
+            _drawerListTileWidget('Apoya la app', Icons.volunteer_activism, () {
+              context.push('/apoyanos');
+            }),
             _drawerListTileWidget('Tutorial', Icons.ondemand_video, () {
-              ref.read(nameTutorialInside.notifier).state = 'HubIA';
-              ref.read(urlTutorialInside.notifier).state =
+              ref.read(nameTutorialScreen.notifier).state = 'HubIA';
+              ref.read(urlTutorialScreen.notifier).state =
                   'https://youtu.be/PLo_1FW86bg';
-              context.go('/tutorialInside');
+              context.go('/TutorialScreen');
 
               //Navigator.pushNamed(context, '/favs');
 
@@ -401,19 +427,17 @@ class HomeScreen extends ConsumerWidget {
                 '¿Problemas?', Icons.sentiment_very_dissatisfied_sharp, () {
               _showDialogProblemasAcceso(context);
             }),
-/*             _drawerListTileWidget('Ayúdanos a mejorar', Icons.feedback, () {
-              context.push('/feedback');
-            }),
-            _drawerListTileWidget('Eliminar anuncios', Icons.auto_delete, () {
+
+/*             _drawerListTileWidget('Eliminar anuncios', Icons.auto_delete, () {
               context.push('/eliminarAnuncios');
-            }), */
+            }),  */
             const SizedBox(height: 20),
             const Divider(
               color: Colors.grey,
             ),
             const Text("  Información", style: TextStyle(color: Colors.white)),
             _drawerListTileWidget('Info de la app', Icons.info, () {
-              context.go('/infoApp');
+              context.go('/InfoAppScreen');
             }),
             _drawerListTileWidget('Politica de privacidad', Icons.policy, () {
               context.go('/politica');

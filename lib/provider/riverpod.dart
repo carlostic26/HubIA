@@ -64,30 +64,9 @@ final iasProvider = FutureProvider<List<IA>>((ref) async {
   return dbService.getIAByPalabraClave(palabraClave);
 });
 
-//ads | Proveedor para cargar el banner
-/* final anchoredAdaptiveAdProvider = StateProvider<BannerAd?>((ref) => null);
+final urlTutorialScreen = StateProvider((ref) => 'empty');
 
-final adRequest = AdRequest(
-    // Configura tu solicitud de anuncios aquí
-    );
-
-void loadAdaptiveAd(WidgetRef ref) {
-  HubiaAdsIds ads = HubiaAdsIds();
-  final anchoredAdaptiveAd = BannerAd(
-    size: AdSize.banner,
-    adUnitId: ads.banner_adUnitId,
-    listener: BannerAdListener(),
-    request: adRequest,
-  );
-
-  anchoredAdaptiveAd.load().then((value) {
-    ref.read(anchoredAdaptiveAdProvider.notifier).state = anchoredAdaptiveAd;
-  });
-} */
-
-final urlTutorialInside = StateProvider((ref) => 'empty');
-
-final nameTutorialInside = StateProvider((ref) => 'empty');
+final nameTutorialScreen = StateProvider((ref) => 'empty');
 
 // Proveedor de imagenes de muestra category
 
@@ -105,6 +84,10 @@ final audioCategoryProvider = FutureProvider<List<IA>>((ref) async {
 
 final textCategoryProvider = FutureProvider<List<IA>>((ref) async {
   return await dBhandler.getImgByCategory('text');
+});
+
+final codeCategoryProvider = FutureProvider<List<IA>>((ref) async {
+  return await dBhandler.getImgByCategory('code');
 });
 
 final numberCategoryProvider = FutureProvider<List<IA>>((ref) async {

@@ -3,14 +3,14 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hubia/screens/screens_barril.dart';
 
-class SearchIA extends StatefulWidget {
-  const SearchIA({Key? key}) : super(key: key);
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({Key? key}) : super(key: key);
 
   @override
-  _SearchIAState createState() => _SearchIAState();
+  _SearchScreenState createState() => _SearchScreenState();
 }
 
-class _SearchIAState extends State<SearchIA> {
+class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
 
   //initializing banner ad

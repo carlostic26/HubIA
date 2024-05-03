@@ -1,8 +1,9 @@
+import 'package:hubia/screens/apoyanos.dart';
 import 'package:hubia/screens/fav_screen.dart';
 import 'package:hubia/screens/info_app.dart';
 import 'package:hubia/screens/politica_privacidad.dart';
 import 'package:hubia/screens/screens_barril.dart';
-import 'package:hubia/screens/tutorial_inside.dart';
+import 'package:hubia/screens/tutorial_screen.dart';
 import 'package:hubia/screens/webview.dart';
 
 GoRouter appRoutes() {
@@ -14,12 +15,16 @@ GoRouter appRoutes() {
         builder: (context, state) => const HomeScreen(),
       ),
       GoRoute(
-        path: '/infoApp',
-        builder: (context, state) => const infoApp(),
+        path: '/apoyanos',
+        builder: (context, state) => const ApoyanosScreen(),
+      ),
+      GoRoute(
+        path: '/InfoAppScreen',
+        builder: (context, state) => const InfoAppScreen(),
       ),
       GoRoute(
         path: '/politica',
-        builder: (context, state) => const politicaPrivacidad(),
+        builder: (context, state) => const PoliticaScreen(),
       ),
       GoRoute(
         path: '/categoryList',
@@ -39,15 +44,15 @@ GoRouter appRoutes() {
       ),
       GoRoute(
         path: '/search',
-        builder: (context, state) => SearchIA(),
+        builder: (context, state) => const SearchScreen(),
       ),
       GoRoute(
         path: '/favs',
         builder: (context, state) => const FavoriteScreen(),
       ),
       GoRoute(
-        path: '/tutorialInside',
-        builder: (context, state) => TutorialInside(),
+        path: '/TutorialScreen',
+        builder: (context, state) => TutorialScreen(),
       ),
     ],
   );

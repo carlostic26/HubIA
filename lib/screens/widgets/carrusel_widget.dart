@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hubia/model/db/ia_model.dart';
 import 'package:hubia/screens/screens_barril.dart';
 
 class MyCarousel extends StatefulWidget {
   final List<IA> categoryList; // Agrega un campo para la lista de categorías
-
-  // Constructor que requiere categoryList al crear la clase
   const MyCarousel({Key? key, required this.categoryList}) : super(key: key);
 
   @override
@@ -36,7 +33,7 @@ class _MyCarouselState extends State<MyCarousel> {
                     placeholder: (context, url) =>
                         const Center(child: CircularProgressIndicator()),
                     placeholderFadeInDuration:
-                        const Duration(milliseconds: 500),
+                        const Duration(milliseconds: 800),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
@@ -53,7 +50,7 @@ class _MyCarouselState extends State<MyCarousel> {
                     placeholder: (context, url) =>
                         const Center(child: CircularProgressIndicator()),
                     placeholderFadeInDuration:
-                        const Duration(milliseconds: 500),
+                        const Duration(milliseconds: 800),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
@@ -73,7 +70,7 @@ class _MyCarouselState extends State<MyCarousel> {
               fit: BoxFit.cover,
               placeholder: (context, url) =>
                   const Center(child: CircularProgressIndicator()),
-              placeholderFadeInDuration: const Duration(milliseconds: 500),
+              placeholderFadeInDuration: const Duration(milliseconds: 800),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),

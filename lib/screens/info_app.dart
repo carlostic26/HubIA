@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hubia/screens/screens_barril.dart';
 
-class infoApp extends StatelessWidget {
-  const infoApp({super.key});
+class InfoAppScreen extends StatelessWidget {
+  const InfoAppScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

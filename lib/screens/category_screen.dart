@@ -28,10 +28,10 @@ class _ListCategoryScreenState extends ConsumerState<ListCategoryScreen> {
     final futureIAList = ref.watch(getCategoryIaProvider.future);
 
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Color.fromARGB(255, 40, 40, 40),
       body: Stack(
         children: [
-          AnimatedBackground(),
+          //AnimatedBackground(),
           Column(
             children: [
               _appBar(selectedCategory, context),

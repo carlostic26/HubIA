@@ -8,6 +8,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hubia/controller/admob_controller.dart';
 import 'package:flutter_dialogs/flutter_dialogs.dart';
 import 'package:hubia/screens/screens_barril.dart';
+import 'package:share_plus/share_plus.dart';
 
 class DetailScreen extends ConsumerStatefulWidget {
   DetailScreen({Key? key}) : super(key: key);
@@ -57,29 +58,36 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
     final ia = ref.watch(selectedIAProvider);
 
     //provider que lee en variable de videotutorial actual
-    final tutorialInside = ref.watch(urlTutorialInside);
+    final TutorialScreen = ref.watch(urlTutorialScreen);
 
     // Observar el estado de favorito para el IA actual
     final isLiked = ref.watch(isIAFavoritedProvider(ia!.name!));
 
-    return Scaffold(
-      body: Stack(children: [
-        AnimatedBackground(),
-        Column(
-          children: [
-            _appBar(ia.name.toString(), context),
-            Expanded(child: itemList(ia, context, isLiked, height))
-          ],
-        ),
-      ]),
-      bottomNavigationBar: _anchoredAdaptiveAd != null
-          ? Container(
-              color: Colors.transparent,
-              width: _anchoredAdaptiveAd?.size.width.toDouble(),
-              height: _anchoredAdaptiveAd?.size.height.toDouble(),
-              child: AdWidget(ad: _anchoredAdaptiveAd!),
-            )
-          : SizedBox(), // Si no hay anuncio cargado, no muestra nada
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (didPop) {
+        context.go('/home');
+      },
+      child: Scaffold(
+        backgroundColor: Color.fromARGB(255, 40, 40, 40),
+        body: Stack(children: [
+          //AnimatedBackground(),
+          Column(
+            children: [
+              _appBar(ia.name.toString(), context),
+              Expanded(child: itemList(ia, context, isLiked, height))
+            ],
+          ),
+        ]),
+        bottomNavigationBar: _anchoredAdaptiveAd != null
+            ? Container(
+                color: Colors.transparent,
+                width: _anchoredAdaptiveAd?.size.width.toDouble(),
+                height: _anchoredAdaptiveAd?.size.height.toDouble(),
+                child: AdWidget(ad: _anchoredAdaptiveAd!),
+              )
+            : SizedBox(), // Si no hay anuncio cargado, no muestra nada
+      ),
     );
   }
 
@@ -227,12 +235,12 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                                     ElevatedButton(
                                       onPressed: () {
                                         ref
-                                            .read(nameTutorialInside.notifier)
+                                            .read(nameTutorialScreen.notifier)
                                             .state = ia.name!;
                                         ref
-                                            .read(urlTutorialInside.notifier)
+                                            .read(urlTutorialScreen.notifier)
                                             .state = ia.tutorialUrl!;
-                                        context.go('/tutorialInside');
+                                        context.go('/TutorialScreen');
                                       },
                                       style: ElevatedButton.styleFrom(
                                         elevation: 0,
@@ -354,11 +362,29 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                   )),
  */
               //share button
+
+              //apoyanos
               Container(
                   alignment: Alignment.topCenter,
                   padding: const EdgeInsets.symmetric(horizontal: 2.0),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.push('/apoyanos');
+                    },
+                    icon: const Icon(
+                      Icons.volunteer_activism,
+                      size: 30.0,
+                    ),
+                    color: Colors.grey,
+                  )),
+
+              Container(
+                  alignment: Alignment.topCenter,
+                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                  child: IconButton(
+                    onPressed: () {
+                      _compartirUrl(ia.name.toString());
+                    },
                     icon: const Icon(
                       Icons.share,
                       size: 30.0,
@@ -574,7 +600,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
               TextButton(
                 child: const Text('Continuar',
                     style: TextStyle(color: Colors.white, fontSize: 10)),
-                style: TextButton.styleFrom(backgroundColor: Colors.blueAccent),
+                style: TextButton.styleFrom(backgroundColor: Colors.blueGrey),
                 onPressed: () async {
                   try {
                     final result = await InternetAddress.lookup('google.com');
@@ -696,6 +722,13 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
         },
       ),
     );
+  }
+
+  void _compartirUrl(String nameIA) {
+    Share.share("Esta IA es impresionante, se llama " +
+        nameIA +
+        " úsala con Hubia, enlace a Play Store 🥳👇🏼" +
+        "\n\nhttps://play.google.com/store/apps/details?id=com.blogspot.apphubia");
   }
 }
 

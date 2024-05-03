@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webview_pro/webview_flutter.dart';
 import 'package:hubia/screens/screens_barril.dart';
 
-class politicaPrivacidad extends StatelessWidget {
-  const politicaPrivacidad({super.key});
+class PoliticaScreen extends StatelessWidget {
+  const PoliticaScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

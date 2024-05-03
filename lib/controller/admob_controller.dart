@@ -3,21 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdHelper {
-  /* 
   //real
   static String banner_adUnitId = 'ca-app-pub-4336409771912215/3701982762';
   static String openApp_adUnitId = 'ca-app-pub-4336409771912215/2396639958';
   static String interstitial_adUnitId =
       'ca-app-pub-4336409771912215/6832361375';
-  static String reward_adUnitId = 'ca-app-pub-4336409771912215/4206198036'; */
-
+  static String reward_adUnitId = 'ca-app-pub-4336409771912215/4206198036';
+  /* 
   //test
   static String banner_adUnitId = 'ca-app-pub-3940256099942544/6300978111';
   static String openApp_adUnitId = 'ca-app-pub-3940256099942544/3419835294';
   static String interstitial_adUnitId =
       'ca-app-pub-3940256099942544/1033173712';
   static String reward_adUnitId = 'ca-app-pub-3940256099942544/5354046379';
-
+*/
   static String get bannerAdUnitId {
     if (Platform.isAndroid) {
       return banner_adUnitId;

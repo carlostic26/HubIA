@@ -4,14 +4,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hubia/screens/screens_barril.dart';
 
-class TutorialInside extends ConsumerStatefulWidget {
-  TutorialInside({Key? key}) : super(key: key);
+class TutorialScreen extends ConsumerStatefulWidget {
+  TutorialScreen({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _TutorialInsideState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _TutorialScreenState();
 }
 
-class _TutorialInsideState extends ConsumerState<TutorialInside> {
+class _TutorialScreenState extends ConsumerState<TutorialScreen> {
   //initializing banner ad
   BannerAd? _anchoredAdaptiveAd;
   bool _isLoaded = false;
@@ -24,8 +24,8 @@ class _TutorialInsideState extends ConsumerState<TutorialInside> {
       _isAdLoaded = true;
     }
 
-    final urlTutorial = ref.watch(urlTutorialInside);
-    final nameTutorial = ref.watch(nameTutorialInside);
+    final urlTutorial = ref.watch(urlTutorialScreen);
+    final nameTutorial = ref.watch(nameTutorialScreen);
 
     String videoId = '';
 
