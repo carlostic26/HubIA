@@ -728,7 +728,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
     Share.share("Esta IA es impresionante, se llama " +
         nameIA +
         " úsala con Hubia, enlace a Play Store 🥳👇🏼" +
-        "\n\nhttps://play.google.com/store/apps/details?id=com.blogspot.apphubia");
+        "\n\nhttps://play.google.com/store/apps/details?id=com.blogspot.hubiaapp");
   }
 }
 

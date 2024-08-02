@@ -33,7 +33,7 @@ class _MyCarouselState extends State<MyCarousel> {
                     placeholder: (context, url) =>
                         const Center(child: CircularProgressIndicator()),
                     placeholderFadeInDuration:
-                        const Duration(milliseconds: 800),
+                        const Duration(milliseconds: 500),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
@@ -86,7 +86,7 @@ class _MyCarouselState extends State<MyCarousel> {
           items: combinedItems,
           options: CarouselOptions(
             height: MediaQuery.of(context).size.height * 0.25,
-            autoPlayInterval: const Duration(seconds: 2),
+            autoPlayInterval: const Duration(seconds: 6),
             enableInfiniteScroll: false,
             autoPlay: true,
             enlargeCenterPage: true,

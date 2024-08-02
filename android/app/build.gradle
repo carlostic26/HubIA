@@ -29,7 +29,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "com.blogspot.apphubia"
+    namespace "com.blogspot.hubiaapp"
     //compileSdk flutter.compileSdkVersion
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
@@ -48,9 +48,9 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.blogspot.apphubia"
+        applicationId "com.blogspot.hubiaapp"
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true

@@ -1,6 +1,6 @@
 import '../screens/screens_barril.dart';
 
-final maxIas_rp = StateProvider((ref) => 25); //numero de ias
+final maxIas_rp = StateProvider((ref) => 265); //numero de ias
 final isFirstBuild_rp = StateProvider((ref) => true);
 final contadorFinalizado_rp = StateProvider((ref) => false);
 final isButtonVisible_rp = StateProvider((ref) => false);

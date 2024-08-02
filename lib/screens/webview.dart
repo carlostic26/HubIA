@@ -41,7 +41,7 @@ class WebViewScreen extends ConsumerWidget {
       Share.share("Esta IA es impresionante, se llama " +
           nameIA +
           " úsala con Hubia, enlace a Play Store 🥳👇🏼" +
-          "\n\nhttps://play.google.com/store/apps/details?id=com.blogspot.apphubia");
+          "\n\nhttps://play.google.com/store/apps/details?id=com.blogspot.hubiaapp");
     }
 
     void _openUrl(String url) async {
@@ -455,7 +455,7 @@ class WebViewScreen extends ConsumerWidget {
       Share.share("Esta IA es impresionante, se llama " +
           nameIA +
           " úsala con Hubia, enlace a Play Store 🥳👇🏼" +
-          "\n\nhttps://play.google.com/store/apps/details?id=com.blogspot.apphubia");
+          "\n\nhttps://play.google.com/store/apps/details?id=com.blogspot.hubiaapp");
     }
 
     void _openUrl(String url) async {
