@@ -30,7 +30,6 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.blogspot.hubiaapp"
-    //compileSdk flutter.compileSdkVersion
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
@@ -76,5 +75,3 @@ android {
 flutter {
     source '../..'
 }
-
-dependencies {}

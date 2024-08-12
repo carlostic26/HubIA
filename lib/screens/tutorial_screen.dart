@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_pro/webview_flutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hubia/screens/screens_barril.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class TutorialScreen extends ConsumerStatefulWidget {
   TutorialScreen({Key? key}) : super(key: key);
@@ -16,6 +16,19 @@ class _TutorialScreenState extends ConsumerState<TutorialScreen> {
   BannerAd? _anchoredAdaptiveAd;
   bool _isLoaded = false;
   bool _isAdLoaded = false;
+
+  late WebViewController _controller;
+
+  initController(videoId) {
+    setState(() {
+      _controller = WebViewController()
+        ..setJavaScriptMode(JavaScriptMode.unrestricted)
+        ..setUserAgent(
+            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36')
+        ..loadRequest(Uri.parse(
+            'https://www.youtube.com/embed/$videoId?rel=0&autoplay=1&showinfo=0&controls=0&modestbranding=1'));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +50,7 @@ class _TutorialScreenState extends ConsumerState<TutorialScreen> {
 
       if (match != null && match.groupCount == 1) {
         videoId = match.group(1)!;
+        initController(videoId);
       }
     }
 
@@ -66,15 +80,10 @@ class _TutorialScreenState extends ConsumerState<TutorialScreen> {
                   SizedBox(height: 20),
                   //frame video
                   Container(
-                    height: 200,
-                    child: WebView(
-                      initialUrl:
-                          'https://www.youtube.com/embed/$videoId?rel=0&autoplay=1&showinfo=0&controls=0&modestbranding=1',
-                      javascriptMode: JavascriptMode.unrestricted,
-                      userAgent:
-                          'Mozilla/5.0 (Linux; Android 10; Tablet; rv:68.0) Gecko/68.0 Firefox/68.0',
-                    ),
-                  ),
+                      height: 200,
+                      child: WebViewWidget(
+                        controller: _controller,
+                      )),
                   Divider(),
 
                   SizedBox(height: 20),
