@@ -18,8 +18,8 @@ class HubiaAdsIds {
 //real
 
 class HubiaAdsIds {
-  String banner_adUnitId = 'ca-app-pub-4336409771912215/1846593505';
-  String openApp_adUnitId = 'ca-app-pub-4336409771912215/9533511834';
-  String interstitial_adUnitId = 'ca-app-pub-4336409771912215/1855962674';
-  String reward_adUnitId = 'ca-app-pub-4336409771912215/6142692045';
+  String banner_adUnitId = 'ca-app-pub-2589968091525850/7130080829';
+  String openApp_adUnitId = 'ca-app-pub-2589968091525850/4593183876';
+  String interstitial_adUnitId = 'ca-app-pub-2589968091525850/3278465729';
+  String reward_adUnitId = 'ca-app-pub-2589968091525850/7217710733';
 }

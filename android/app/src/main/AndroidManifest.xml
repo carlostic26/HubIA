@@ -10,10 +10,10 @@
         android:icon="@mipmap/launcher_icon">
 
         <!-- change ID app  to test ID in the next line. actually is the real id: 398...-->
-        <!-- Sample AdMob app ID, test: ca-app-pub-3940256099942544~3347511713 || new: ca-app-pub-4336409771912215~5977410204--> 
+        <!-- Sample AdMob app ID, test: ca-app-pub-3940256099942544~3347511713 || new: ca-app-pub-2589968091525850~8532428880--> 
         <meta-data 
            android:name="com.google.android.gms.ads.APPLICATION_ID" 
-           android:value="ca-app-pub-4336409771912215~5977410204"/>
+           android:value="ca-app-pub-2589968091525850~8532428880"/>
 
         <activity
             android:name=".MainActivity"

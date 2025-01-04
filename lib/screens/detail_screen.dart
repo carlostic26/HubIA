@@ -258,7 +258,8 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                                     ),
                                     ElevatedButton(
                                       onPressed: () {
-                                        launch(ia.tutorialUrl.toString());
+                                        launchUrl(Uri.parse(
+                                            ia.tutorialUrl.toString()));
                                       },
                                       style: ElevatedButton.styleFrom(
                                         elevation: 0,
@@ -339,7 +340,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 2.0),
                       child: IconButton(
                         onPressed: () {
-                          launch(ia.tutorialUrl.toString());
+                          launchUrl(Uri.parse(ia.tutorialUrl.toString()));
                         },
                         icon: const Icon(
                           Icons.ondemand_video,
@@ -433,11 +434,11 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 5.0),
                         child: ElevatedButton.icon(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                Colors.blueGrey),
+                            backgroundColor:
+                                WidgetStateProperty.all<Color>(Colors.blueGrey),
                           ),
                           onPressed: () async {
-                            launch(ia.tutorialUrl.toString());
+                            launchUrl(Uri.parse(ia.tutorialUrl.toString()));
                           },
                           icon: const FaIcon(
                             FontAwesomeIcons.youtube,
@@ -461,7 +462,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                   child: ElevatedButton.icon(
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blueGrey),
+                          WidgetStateProperty.all<Color>(Colors.blueGrey),
                     ),
                     onPressed: () async {
                       //interstitial
